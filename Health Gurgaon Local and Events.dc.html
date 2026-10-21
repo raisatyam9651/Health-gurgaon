@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><style>body{margin:0;background:#fff;font-family:'Lexend',sans-serif;color:#2B1D14}a{color:#0F766E;text-decoration:none}a:hover{color:#2B1D14}input,select,button,textarea{font-family:inherit}*{box-sizing:border-box}</style></helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+
+<div style="background:#2B1D14;color:#FBF4E8;font-size:12.5px"><div style="max-width:1240px;margin:0 auto;padding:7px 24px;display:flex;justify-content:space-between;align-items:center;gap:6px 12px;flex-wrap:wrap"><div style="display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center"><b style="background:#B42318;color:#fff;padding:2px 9px;border-radius:999px;font-weight:600;white-space:nowrap">Emergency? Call 112</b><span style="font-weight:300;color:#e8dccb;white-space:nowrap">Ambulance 108</span><span style="font-weight:300;color:#e8dccb;white-space:nowrap">Not for emergencies</span></div><span style="color:#e8dccb;white-space:nowrap">EN | हिं · A+ Larger text · Gurgaon ▾</span></div></div>
+<header style="background:#fff;border-bottom:1px solid #efe3cf;position:sticky;top:0;z-index:20"><div style="max-width:1240px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+<a href="Health%20Gurgaon%20Homepage.dc.html" style="display:flex;align-items:center;gap:9px;color:#2B1D14"><svg width="34" height="34" viewBox="0 0 100 100"><circle cx="84" cy="50" r="9" fill="#0F766E"></circle><circle cx="74.04" cy="74.04" r="9" fill="#F0B43C"></circle><circle cx="50" cy="84" r="9" fill="#0F766E"></circle><circle cx="25.96" cy="74.04" r="9" fill="#F0B43C"></circle><circle cx="16" cy="50" r="9" fill="#0F766E"></circle><circle cx="25.96" cy="25.96" r="9" fill="#F0B43C"></circle><circle cx="50" cy="16" r="9" fill="#0F766E"></circle><circle cx="74.04" cy="25.96" r="9" fill="#F0B43C"></circle><rect x="36" y="42" width="8" height="20" rx="1.5" fill="#2B1D14"></rect><rect x="46" y="32" width="9" height="30" rx="1.5" fill="#2B1D14"></rect><rect x="57" y="45" width="7" height="17" rx="1.5" fill="#2B1D14"></rect><rect x="48.5" y="36" width="4" height="4" fill="#F0B43C"></rect></svg><span style="font-weight:700;font-size:21px;letter-spacing:-.045em">Health<span style="color:#0F766E">Gurgaon</span></span></a>
+<nav style="display:flex;gap:2px;flex-wrap:wrap;font-size:14px"><a href="Health%20Gurgaon%20Find%20Care.dc.html#results" style="color:#2B1D14;padding:8px 11px">Find care</a><a href="#locality" style="{{ navLoc }}">Localities</a><a href="#calendar" style="{{ navEv }}">Events</a><a href="Health%20Gurgaon%20Community.dc.html#forum" style="color:#2B1D14;padding:8px 11px">Community</a><a href="Health%20Gurgaon%20Community.dc.html#rwa" style="color:#2B1D14;padding:8px 11px">Healthy Neighbourhoods</a></nav>
+<div style="display:flex;gap:8px"><a href="Health%20Gurgaon%20Content%20and%20Trust.dc.html#report" style="border:1.5px solid #2B1D14;color:#2B1D14;border-radius:999px;padding:8px 15px;font-weight:500;font-size:13.5px">Contribute</a><a href="#" style="background:#2B1D14;color:#FBF4E8;border-radius:999px;padding:9px 16px;font-weight:500;font-size:13.5px">Sign in</a></div>
+</div></header>
+<div style="background:#FBF4E8;border-bottom:1px solid #efe3cf"><div style="max-width:1240px;margin:0 auto;padding:8px 24px;display:flex;gap:6px;align-items:center;flex-wrap:wrap"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#6e5a4b;margin-right:6px">PROTOTYPE · LOCAL &amp; EVENTS</span><sc-for list="{{ screens }}" as="s" hint-placeholder-count="4"><button onClick="{{ s.onClick }}" style="{{ s.style }}">{{ s.label }}</button></sc-for></div></div>
+
+<main style="flex:1">
+
+<sc-if value="{{ isLocality }}" hint-placeholder-val="{{ true }}">
+<div style="background:#FBF4E8"><div style="max-width:1240px;margin:0 auto;padding:28px 24px 36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:28px;align-items:center">
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="font-size:13px;color:#6e5a4b;font-weight:300"><a href="Health%20Gurgaon%20Homepage.dc.html">Gurgaon</a> › <a href="#">Localities</a> › Sohna Road</div>
+<h1 style="margin:0;font-weight:700;font-size:46px;line-height:1.02;letter-spacing:-.045em">Healthcare on Sohna Road</h1>
+<p style="margin:0;font-weight:300;font-size:16.5px;line-height:1.6;color:#5a473a;max-width:560px">Covers Sectors 47–50, Malibu Town, Nirvana Country and the Sohna Road corridor. A residential stretch with many neighbourhood clinics and labs, and multi-speciality hospitals about 15 minutes away.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button onClick="{{ toggleFollow }}" style="{{ followStyle }}">{{ followLabel }}</button><span style="font:400 11px 'Spline Sans Mono',monospace;color:#6e5a4b">PAGE UPDATED 14 OCT 2026 · EDITOR: LOCAL DESK</span></div>
+</div>
+<div style="height:280px;border-radius:24px;background:repeating-linear-gradient(135deg,#efe3cf 0 12px,#f6ecdc 12px 24px);position:relative"><span style="position:absolute;left:16px;top:14px;font:400 11px 'Spline Sans Mono',monospace;background:#FBF4E8;padding:4px 8px;border-radius:6px;color:#6e5a4b">MAP · Sohna Road boundary with verified providers</span></div>
+</div></div>
+<div style="max-width:1240px;margin:0 auto;padding:32px 24px 56px;display:flex;flex-direction:column;gap:32px">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px"><sc-for list="{{ locStats }}" as="st" hint-placeholder-count="6"><button onClick="{{ st.onClick }}" style="{{ st.style }}"><span style="font-weight:700;font-size:28px;letter-spacing:-.03em">{{ st.n }}</span><span style="font-weight:400;font-size:13.5px">{{ st.k }}</span></button></sc-for></div>
+<span style="font-weight:300;font-size:12.5px;color:#6e5a4b;margin-top:-20px">Verified listings only. Tap a category to see them.</span>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-weight:600;font-size:20px">{{ locCatTitle }}</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px"><sc-for list="{{ locProviders }}" as="p" hint-placeholder-count="3"><a href="Health%20Gurgaon%20Find%20Care.dc.html#doctor" style="border:1px solid #efe3cf;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:5px;color:#2B1D14"><span style="font-weight:600;font-size:15.5px">{{ p.n }}</span><span style="font-weight:300;font-size:13px;color:#5a473a">{{ p.d }}</span><span style="font:400 10.5px 'Spline Sans Mono',monospace;color:#1E7A4F">✓ {{ p.c }}</span></a></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-weight:600;font-size:20px">Featured hospitals serving Sohna Road</span><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#facilities" style="font-size:13.5px;font-weight:500">All hospitals &amp; care centres →</a></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:12px"><sc-for list="{{ locHosp }}" as="h" hint-placeholder-count="3"><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#business" style="{{ h.card }}"><div style="display:flex;gap:6px;flex-wrap:wrap"><span style="{{ h.ownStyle }}">{{ h.own }}</span><span style="background:#FBF4E8;border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:600">{{ h.type }}</span><sc-if value="{{ h.sponsored }}" hint-placeholder-val="{{ false }}"><span style="background:#2B1D14;color:#F0B43C;border-radius:6px;padding:3px 8px;font:500 10px 'Spline Sans Mono',monospace">SPONSORED</span></sc-if></div><span style="font-weight:600;font-size:16px">{{ h.name }}</span><span style="font-weight:300;font-size:13px;color:#5a473a">{{ h.meta }}</span><span style="font-size:12.5px;font-weight:500;color:#0F766E">{{ h.reco }}</span></a></sc-for></div>
+<span style="font-weight:300;font-size:12px;color:#6e5a4b">Chosen by editors for coverage and access, not ranked by quality. Sponsored hospitals are always labelled.</span></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:20px">
+<div style="background:#FBF4E8;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:12px"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600;font-size:18px">Upcoming on Sohna Road</span><button onClick="{{ goCalendar }}" style="background:none;border:0;color:#0F766E;font-size:13.5px;cursor:pointer">Calendar →</button></div><sc-for list="{{ locEvents }}" as="e" hint-placeholder-count="2"><button onClick="{{ e.open }}" style="text-align:left;background:#fff;border:0;border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center;cursor:pointer;font-family:inherit;color:#2B1D14"><span style="background:#2B1D14;color:#FBF4E8;border-radius:12px;padding:8px 10px;font-weight:700;font-size:18px;text-align:center;min-width:56px">{{ e.day }}<br><span style="font:400 10px 'Spline Sans Mono',monospace">{{ e.mon }}</span></span><span style="display:flex;flex-direction:column;gap:3px"><span style="font-weight:600;font-size:14.5px">{{ e.title }}</span><span style="{{ e.statusStyle }}">{{ e.status }}</span></span></button></sc-for></div>
+<div style="border:1px solid #efe3cf;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px"><span style="font-weight:600;font-size:18px">Neighbours are asking</span><sc-for list="{{ locQs }}" as="q" hint-placeholder-count="3"><a href="Health%20Gurgaon%20Community.dc.html#thread" style="border-top:1px solid #efe3cf;padding:12px 0;color:#2B1D14;display:flex;flex-direction:column;gap:3px"><span style="font-weight:500;font-size:14.5px">{{ q.t }}</span><span style="font-weight:300;font-size:12px;color:#6e5a4b">{{ q.m }}</span></a></sc-for></div>
+<div style="border:1px solid #efe3cf;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px"><span style="font-weight:600;font-size:18px">Getting care from Sohna Road</span><span style="font-weight:300;font-size:14px;line-height:1.6;color:#5a473a">Nearest 24×7 emergency departments are on Golf Course Ext. Road and Sector 38. During evening traffic, allow 25–40 minutes. Two chemists on this stretch are verified open 24 hours.</span><a href="Health%20Gurgaon%20Content%20and%20Trust.dc.html#guide" style="font-weight:500;font-size:13.5px">Guide: planning for emergencies in your society →</a></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCalendar }}" hint-placeholder-val="{{ false }}">
+<div style="max-width:1240px;margin:0 auto;padding:28px 24px 56px;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:6px"><h1 style="margin:0;font-weight:700;font-size:40px;letter-spacing:-.045em">Health camps &amp; events</h1><span style="font-weight:300;font-size:15px;color:#5a473a">Free check-ups, blood drives, workshops and talks across Gurgaon.</span></div><button onClick="{{ goSubmit }}" style="background:#2B1D14;color:#FBF4E8;border:0;border-radius:999px;padding:12px 20px;font-size:14.5px;font-weight:500;cursor:pointer">+ Submit an event</button></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+<sc-for list="{{ typeChips }}" as="c" hint-placeholder-count="6"><button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button></sc-for>
+<select value="{{ evLoc }}" onChange="{{ onEvLoc }}" style="border:1.5px solid #e8dcc8;border-radius:999px;padding:8px 12px;font-size:13.5px;background:#fff"><sc-for list="{{ evLocOptions }}" as="o" hint-placeholder-count="5"><option value="{{ o }}">{{ o }}</option></sc-for></select>
+<label style="display:flex;gap:8px;align-items:center;font-size:13.5px;cursor:pointer"><input type="checkbox" checked="{{ freeOnly }}" onChange="{{ toggleFree }}" style="width:18px;height:18px;accent-color:#0F766E">Free only</label>
+<label style="display:flex;gap:8px;align-items:center;font-size:13.5px;cursor:pointer"><input type="checkbox" checked="{{ verifiedOnly }}" onChange="{{ toggleVerified }}" style="width:18px;height:18px;accent-color:#0F766E">Verified only</label>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px;align-items:start">
+<div style="border:1px solid #efe3cf;border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600;font-size:17px">November 2026</span><button onClick="{{ clearDay }}" style="{{ clearDayStyle }}">Show all dates</button></div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font:500 10.5px 'Spline Sans Mono',monospace;color:#6e5a4b;text-align:center"><span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span></div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px"><sc-for list="{{ days }}" as="d" hint-placeholder-count="30"><button onClick="{{ d.onClick }}" style="{{ d.style }}"><span>{{ d.n }}</span><span style="{{ d.dotStyle }}"></span></button></sc-for></div>
+<div style="display:flex;gap:14px;font-size:11.5px;color:#6e5a4b;font-weight:300;flex-wrap:wrap"><span style="display:flex;gap:6px;align-items:center"><span style="width:8px;height:8px;border-radius:50%;background:#0F766E"></span>Verified event</span><span style="display:flex;gap:6px;align-items:center"><span style="width:8px;height:8px;border-radius:50%;background:#F0B43C"></span>Awaiting review</span></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;grid-column:span 2;min-width:0">
+<span style="font-weight:600;font-size:16px">{{ listTitle }}</span>
+<sc-for list="{{ evList }}" as="e" hint-placeholder-count="4">
+<div style="border:1px solid #efe3cf;border-radius:20px;padding:16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+<div style="width:64px;flex:none;border-radius:14px;background:#2B1D14;color:#FBF4E8;display:flex;flex-direction:column;align-items:center;padding:9px 0"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#F0B43C">{{ e.dow }}</span><span style="font-weight:700;font-size:24px;line-height:1.1">{{ e.day }}</span><span style="font:400 10.5px 'Spline Sans Mono',monospace">NOV</span></div>
+<div style="flex:1;min-width:220px;display:flex;flex-direction:column;gap:4px"><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><span style="{{ e.statusStyle }}">{{ e.status }}</span><span style="font-size:11.5px;font-weight:500;color:#6e5a4b">{{ e.type }} · {{ e.cost }}</span></div><button onClick="{{ e.open }}" style="background:none;border:0;padding:0;text-align:left;font:600 16px 'Lexend',sans-serif;color:#2B1D14;cursor:pointer">{{ e.title }}</button><span style="font-weight:300;font-size:13px;color:#5a473a">{{ e.loc }} · {{ e.time }} · {{ e.org }}</span></div>
+<div style="display:flex;gap:6px"><button onClick="{{ e.cal }}" style="{{ e.calStyle }}">{{ e.calLabel }}</button><button onClick="{{ e.open }}" style="background:#2B1D14;color:#FBF4E8;border:0;border-radius:999px;padding:9px 14px;font-size:13px;cursor:pointer">Details</button></div>
+</div>
+</sc-for>
+<sc-if value="{{ noEvents }}" hint-placeholder-val="{{ false }}"><div style="background:#FBF4E8;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font-weight:600;font-size:17px">Nothing matches these filters.</span><span style="font-weight:300;font-size:14px;color:#5a473a">Try another date or locality. Organising something? List it, it's free.</span><button onClick="{{ goSubmit }}" style="align-self:flex-start;background:#0F766E;color:#fff;border:0;border-radius:999px;padding:10px 18px;font-size:14px;cursor:pointer">Submit an event</button></div></sc-if>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isEvent }}" hint-placeholder-val="{{ false }}">
+<div style="max-width:1100px;margin:0 auto;padding:28px 24px 56px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><div style="font-size:13px;color:#6e5a4b;font-weight:300"><a href="#calendar">Events</a> › Health camp</div><label style="display:flex;gap:8px;align-items:center;font:400 11px 'Spline Sans Mono',monospace;color:#6e5a4b;cursor:pointer"><input type="checkbox" checked="{{ previewPending }}" onChange="{{ togglePending }}" style="accent-color:#0F766E">PREVIEW AS “AWAITING REVIEW”</label></div>
+<sc-if value="{{ previewPending }}" hint-placeholder-val="{{ false }}"><div style="background:#FFF4D6;border:1.5px dashed #C99A2E;border-radius:18px;padding:14px 18px;font-size:14px;color:#5a3d00;line-height:1.55"><b>Awaiting review.</b> Submitted by a resident on 14 Oct. We haven't confirmed the details with the organiser yet. Check directly before you go.</div></sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:28px;align-items:start">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="height:240px;border-radius:24px;background:repeating-linear-gradient(135deg,#efe3cf 0 12px,#f6ecdc 12px 24px);position:relative"><span style="position:absolute;left:16px;top:14px;font:400 11px 'Spline Sans Mono',monospace;background:#FBF4E8;padding:4px 8px;border-radius:6px;color:#6e5a4b">PHOTO · organiser's poster or previous camp</span></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span style="{{ evStatusStyle }}">{{ evStatus }}</span><span style="background:#FBF4E8;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:500">Senior citizens</span><span style="background:#FBF4E8;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:500">Free</span></div>
+<h1 style="margin:0;font-weight:700;font-size:38px;line-height:1.08;letter-spacing:-.04em">Free eye check-up camp for senior citizens</h1>
+<p style="margin:0;font-weight:300;font-size:16px;line-height:1.65;color:#5a473a">Vision testing, cataract screening and eye-pressure checks by ophthalmologists and optometrists. Spectacle prescriptions given on the spot; spectacles are not provided. Anyone found to need further care will be referred with a printed summary.</p>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-weight:600;font-size:17px">Please bring</span><span style="font-weight:300;font-size:14.5px;line-height:1.6;color:#5a473a">Current spectacles, a list of medicines you take, and any previous eye reports. A family member is welcome to accompany you.</span></div>
+<div style="background:#FBF4E8;border-radius:20px;padding:18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap"><div style="width:52px;height:52px;border-radius:14px;background:#0F766E;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">57</div><div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:2px"><span style="font-weight:600">Sector 57 Residents' Welfare Association</span><span style="font-weight:300;font-size:13px;color:#5a473a">Verified society · with an eye hospital's community outreach team (sample)</span></div><a href="Health%20Gurgaon%20Community.dc.html#society" style="font-weight:500;font-size:13.5px">Society profile →</a></div>
+</div>
+<aside style="display:flex;flex-direction:column;gap:12px;position:sticky;top:90px">
+<div style="border:1.5px solid #2B1D14;border-radius:22px;overflow:hidden">
+<sc-for list="{{ evFacts }}" as="f" hint-placeholder-count="6"><div style="display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;padding:13px 18px;border-top:1px solid #efe3cf"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#6e5a4b;padding-top:2px">{{ f.k }}</span><span style="font-weight:400;font-size:14.5px;line-height:1.45">{{ f.v }}</span></div></sc-for>
+<div style="padding:16px 18px;display:flex;flex-direction:column;gap:8px;background:#FBF4E8"><button onClick="{{ register }}" style="background:#0F766E;color:#fff;border:0;border-radius:999px;padding:13px;font-size:15px;font-weight:600;cursor:pointer">{{ registerLabel }}</button><div style="display:flex;gap:8px"><button onClick="{{ addCal }}" style="flex:1;background:#fff;border:1.5px solid #e8dcc8;border-radius:999px;padding:10px;font-size:13.5px;cursor:pointer">{{ addCalLabel }}</button><button onClick="{{ toggleShare }}" style="flex:1;background:#fff;border:1.5px solid #e8dcc8;border-radius:999px;padding:10px;font-size:13.5px;cursor:pointer">Share on WhatsApp</button></div></div>
+</div>
+<sc-if value="{{ shareOpen }}" hint-placeholder-val="{{ false }}"><div style="background:#E7F6E9;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:8px"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#1E7A4F">MESSAGE PREVIEW</span><span style="font-size:13.5px;line-height:1.55;white-space:pre-line">{{ shareText }}</span><span style="font-weight:300;font-size:11.5px;color:#5a473a">Opens WhatsApp with this text. We never see who you share with.</span></div></sc-if>
+<span style="font:400 11px/1.6 'Spline Sans Mono',monospace;color:#1E7A4F">{{ verifySource }}</span>
+<button onClick="{{ reportEvent }}" style="align-self:flex-start;background:none;border:0;color:#6e5a4b;font-size:13px;cursor:pointer;padding:4px 0;text-decoration:underline">{{ reportEventLabel }}</button>
+</aside>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSubmit }}" hint-placeholder-val="{{ false }}">
+<div style="max-width:880px;margin:0 auto;padding:28px 24px 64px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:6px"><h1 style="margin:0;font-weight:700;font-size:38px;letter-spacing:-.04em">Submit a health event</h1><span style="font-weight:300;font-size:15px;color:#5a473a">Free for RWAs, NGOs, hospitals and resident groups. We check every event with the organiser before marking it verified.</span></div>
+<sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px"><sc-for list="{{ steps }}" as="st" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:6px"><div style="{{ st.bar }}"></div><span style="{{ st.label }}">{{ st.n }} · {{ st.t }}</span></div></sc-for></div>
+<div style="border:1px solid #efe3cf;border-radius:24px;padding:26px;display:flex;flex-direction:column;gap:18px">
+<sc-if value="{{ step1 }}" hint-placeholder-val="{{ true }}">
+<span style="font-weight:600;font-size:19px">Start from a template</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px"><sc-for list="{{ templates }}" as="tp" hint-placeholder-count="6"><button onClick="{{ tp.onClick }}" style="{{ tp.style }}"><span style="font-weight:600;font-size:15px">{{ tp.n }}</span><span style="font-weight:300;font-size:12.5px;color:#5a473a;line-height:1.4">{{ tp.d }}</span></button></sc-for></div>
+</sc-if>
+<sc-if value="{{ step2 }}" hint-placeholder-val="{{ false }}">
+<span style="font-weight:600;font-size:19px">Event details</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+<sc-for list="{{ detailFields }}" as="f" hint-placeholder-count="6"><label style="{{ f.wrap }}"><span>{{ f.label }}</span><input type="{{ f.type }}" value="{{ f.value }}" onChange="{{ f.onChange }}" placeholder="{{ f.ph }}" style="{{ f.inputStyle }}"><sc-if value="{{ f.err }}" hint-placeholder-val="{{ false }}"><span style="color:#B42318;font-size:12.5px;font-weight:500">{{ f.err }}</span></sc-if></label></sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-weight:500;font-size:14px">Cost to attend</span><div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ costChips }}" as="c" hint-placeholder-count="2"><button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div></div>
+</sc-if>
+<sc-if value="{{ step3 }}" hint-placeholder-val="{{ false }}">
+<span style="font-weight:600;font-size:19px">Who's organising?</span>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ orgTypes }}" as="o" hint-placeholder-count="5"><button onClick="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}</button></sc-for></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px"><sc-for list="{{ orgFields }}" as="f" hint-placeholder-count="4"><label style="{{ f.wrap }}"><span>{{ f.label }}</span><input type="{{ f.type }}" value="{{ f.value }}" onChange="{{ f.onChange }}" placeholder="{{ f.ph }}" style="{{ f.inputStyle }}"><sc-if value="{{ f.err }}" hint-placeholder-val="{{ false }}"><span style="color:#B42318;font-size:12.5px;font-weight:500">{{ f.err }}</span></sc-if></label></sc-for></div>
+<div style="background:#FBF4E8;border-radius:16px;padding:14px 16px;font-weight:300;font-size:13.5px;line-height:1.55;color:#5a473a">We'll call this number once to confirm the event. It is <b style="font-weight:600">never shown publicly</b>. Residents register through the method you choose next.</div>
+</sc-if>
+<sc-if value="{{ step4 }}" hint-placeholder-val="{{ false }}">
+<span style="font-weight:600;font-size:19px">Review and submit</span>
+<div style="border:1px solid #efe3cf;border-radius:18px;overflow:hidden"><sc-for list="{{ summary }}" as="sm" hint-placeholder-count="6"><div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:12px;padding:11px 16px;border-top:1px solid #efe3cf;font-size:14px"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#6e5a4b;padding-top:2px">{{ sm.k }}</span><span>{{ sm.v }}</span></div></sc-for></div>
+<sc-for list="{{ consents }}" as="c" hint-placeholder-count="3"><label style="display:flex;gap:10px;align-items:flex-start;font-size:13.5px;font-weight:300;line-height:1.5;cursor:pointer"><input type="checkbox" checked="{{ c.on }}" onChange="{{ c.onChange }}" style="width:18px;height:18px;margin-top:2px;accent-color:#0F766E">{{ c.label }}</label></sc-for>
+<sc-if value="{{ consentErr }}" hint-placeholder-val="{{ false }}"><span style="color:#B42318;font-size:13px;font-weight:500">Please confirm all three to submit.</span></sc-if>
+</sc-if>
+<div style="display:flex;justify-content:space-between;gap:10px;border-top:1px solid #efe3cf;padding-top:16px"><button onClick="{{ back }}" style="{{ backStyle }}">← Back</button><button onClick="{{ next }}" style="background:#0F766E;color:#fff;border:0;border-radius:999px;padding:12px 24px;font-size:15px;font-weight:600;cursor:pointer">{{ nextLabel }}</button></div>
+</div>
+</sc-if>
+<sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+<div style="border:1px solid #efe3cf;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;gap:14px;align-items:center"><span style="width:48px;height:48px;border-radius:50%;background:#1E7A4F;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;flex:none">✓</span><div style="display:flex;flex-direction:column;gap:3px"><span style="font-weight:700;font-size:22px;letter-spacing:-.02em">Submitted: {{ submittedTitle }}</span><span style="font:400 11.5px 'Spline Sans Mono',monospace;color:#6e5a4b">REFERENCE HG-EV-5182</span></div></div>
+<div style="display:flex;flex-direction:column;gap:0"><sc-for list="{{ tracker }}" as="tr" hint-placeholder-count="3"><div style="display:flex;gap:14px;padding:12px 0"><span style="{{ tr.dot }}"></span><div style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600;font-size:15px">{{ tr.t }}</span><span style="font-weight:300;font-size:13.5px;color:#5a473a">{{ tr.d }}</span></div></div></sc-for></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button onClick="{{ goCalendar }}" style="background:#2B1D14;color:#FBF4E8;border:0;border-radius:999px;padding:11px 18px;font-size:14px;cursor:pointer">Back to calendar</button><button onClick="{{ resetForm }}" style="background:#fff;border:1.5px solid #e8dcc8;border-radius:999px;padding:11px 18px;font-size:14px;cursor:pointer">Submit another</button></div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+</main>
+<footer style="background:#2B1D14;color:#c9b8a4;font-size:12.5px;font-weight:300"><div style="max-width:1240px;margin:0 auto;padding:22px 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span><b style="color:#FBF4E8;font-weight:700">Health<span style="color:#F0B43C">Gurgaon</span></b> · Information here is not medical advice. Emergency: 112.</span><span><a href="Health%20Gurgaon%20Content%20and%20Trust.dc.html#trust" style="color:#e8dccb">Trust centre</a> · <a href="Health%20Gurgaon%20Website%20Plan.dc.html" style="color:#e8dccb">Site plan</a></span></div></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SCREENS = [['locality', 'Locality page'], ['calendar', 'Events calendar'], ['event', 'Camp detail'], ['submit', 'Submit an event']];
+const EVENTS = [
+  { d: 1, dow: 'SUN', type: 'Blood drives', title: 'Blood donation drive with a licensed blood bank', loc: 'Sohna Road', time: '10 am–3 pm', org: 'Nirvana Country RWA', cost: 'Free', ok: true },
+  { d: 2, dow: 'MON', type: 'Talks', title: 'Talk: understanding your blood test report', loc: 'Online', time: '6 pm', org: 'Sector 56 library circle', cost: 'Free', ok: true },
+  { d: 8, dow: 'SUN', type: 'Workshops', title: 'CPR & first-aid for residents and guards', loc: 'DLF Phases 1–5', time: '11 am', org: 'DLF Phase 4 club with a certified trainer', cost: '₹200', ok: true },
+  { d: 9, dow: 'MON', type: 'Screening', title: 'Diabetes and BP screening', loc: 'Sohna Road', time: '8 am–12 pm', org: 'Submitted by a resident', cost: 'Free', ok: false },
+  { d: 14, dow: 'SAT', type: 'Screening', title: 'World Diabetes Day screening camp', loc: 'Golf Course Ext. Road', time: '9 am–1 pm', org: 'Sector 65 society + local hospital', cost: 'Free', ok: true },
+  { d: 15, dow: 'SUN', type: 'Health camps', title: 'Free eye check-up camp for senior citizens', loc: 'Sector 56', time: '9 am–1 pm', org: 'Sector 57 RWA', cost: 'Free', ok: true },
+  { d: 15, dow: 'SUN', type: 'Vaccination', title: 'Flu vaccination drive for adults over 60', loc: 'Golf Course Road', time: '10 am–2 pm', org: 'Submitted by an NGO', cost: '₹450', ok: false },
+  { d: 22, dow: 'SUN', type: 'Health camps', title: 'Women’s health camp: anaemia & thyroid', loc: 'New Gurgaon', time: '9 am–12 pm', org: 'Sector 82 resident group', cost: 'Free', ok: true },
+  { d: 29, dow: 'SUN', type: 'Workshops', title: 'Caring for a parent with dementia', loc: 'Sector 56', time: '5 pm', org: 'Caregivers’ support group', cost: 'Free', ok: true }
+];
+const TEMPLATES = [['Health check-up camp', 'Screenings, consultations, referrals'], ['Blood donation drive', 'With a licensed blood bank'], ['CPR & first-aid workshop', 'Certified trainer required'], ['Awareness talk', 'Expert session, in person or online'], ['Vaccination drive', 'Licensed provider only'], ['Senior citizen activity', 'Check-ups, physio, yoga']];
+class Component extends DCLogic {
+  state = { screen: 'locality', follow: false, locCat: 'Clinics', evType: 'All', evLoc: 'All localities', freeOnly: false, verifiedOnly: false, day: null, onCal: [], pending: false, registered: false, added: false, share: false, eventReported: false,
+    step: 1, tpl: '', f: { title: '', date: '', time: '', venue: '', locality: '', eligibility: '' }, cost: 'Free', orgType: 'RWA', o: { org: '', contact: '', role: '', phone: '' }, errs: {}, consent: [false, false, false], consentErr: false, submitted: false };
+  componentDidMount() { this._h = () => { const h = location.hash.slice(1); if (SCREENS.some(s => s[0] === h)) this.go(h, true); }; this._h(); window.addEventListener('hashchange', this._h); }
+  componentWillUnmount() { window.removeEventListener('hashchange', this._h); }
+  go(screen, fromHash) { this.setState({ screen }); if (!fromHash) history.replaceState(null, '', '#' + screen); window.scrollTo(0, 0); }
+  renderVals() {
+    const s = this.state;
+    const pill = on => ({ border: on ? '1.5px solid #2B1D14' : '1.5px solid #e8dcc8', background: on ? '#2B1D14' : '#fff', color: on ? '#FBF4E8' : '#2B1D14', borderRadius: 999, padding: '7px 13px', fontSize: 13, cursor: 'pointer', minHeight: 36, fontFamily: 'inherit' });
+    const navA = on => ({ color: '#2B1D14', padding: '8px 11px', borderRadius: 10, background: on ? '#FBF4E8' : 'transparent', fontWeight: on ? 500 : 400 });
+    const stStyle = ok => ok ? { alignSelf: 'flex-start', background: '#E6F1EC', color: '#1E7A4F', borderRadius: 999, padding: '3px 9px', fontSize: 11.5, fontWeight: 600 } : { alignSelf: 'flex-start', background: '#FFF4D6', color: '#7A5200', borderRadius: 999, padding: '3px 9px', fontSize: 11.5, fontWeight: 600, border: '1px dashed #C99A2E' };
+    const open = () => this.go('event');
+    const cats = { Clinics: [['Sehgal Family Clinic', 'General physician · Sector 49', 'Checked 6 days ago'], ['Smile Square Dental', 'Dental · Sector 49', 'Checked 6 days ago'], ['Malibu Child Care', 'Paediatrics · Malibu Town', 'Checked 11 days ago']], Labs: [['Prakash Path Labs (collection centre)', 'Sector 48 · home collection', 'Checked 9 days ago'], ['Clear Scan Diagnostics', 'X-ray, ultrasound · Sector 50', 'Checked 20 days ago']], Chemists: [['Sohna Road Medicos', 'Open 24 hours · Sector 47', 'Hours checked 2 days ago'], ['Wellness Chemist', 'Open till 11 pm · Nirvana Country', 'Hours checked 5 days ago']], 'Home care': [['CareAtHome Nursing', 'Elderly & post-surgery care', 'Agency registration checked']], Physio: [['MoveWell Physio', 'Clinic + home visits · Sector 49', 'Credentials checked']], Hospitals: [['Aravali Multispeciality Hospital', '15 min · Golf Course Ext. Road', 'Facility checked 9 days ago']] };
+    const counts = { Clinics: 14, Labs: 6, Chemists: 9, 'Home care': 4, Physio: 5, Hospitals: 2 };
+    let evs = EVENTS.filter(e => (s.evType === 'All' || e.type === s.evType) && (s.evLoc === 'All localities' || e.loc === s.evLoc) && (!s.freeOnly || e.cost === 'Free') && (!s.verifiedOnly || e.ok));
+    const byDay = {}; evs.forEach(e => { (byDay[e.d] = byDay[e.d] || []).push(e); });
+    const listEvs = s.day ? evs.filter(e => e.d === s.day) : evs;
+    const days = Array.from({ length: 30 }, (_, i) => i + 1).map(n => { const has = byDay[n]; const sel = s.day === n; const anyOk = has && has.some(e => e.ok);
+      return { n, onClick: () => has && this.setState({ day: sel ? null : n }), style: { aspectRatio: '1', border: sel ? '2px solid #2B1D14' : '1px solid #f3eadb', background: sel ? '#2B1D14' : has ? '#FBF4E8' : '#fff', color: sel ? '#FBF4E8' : has ? '#2B1D14' : '#b5a592', borderRadius: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 3, fontSize: 13.5, fontWeight: has ? 600 : 300, cursor: has ? 'pointer' : 'default', fontFamily: 'inherit', padding: 0 },
+        dotStyle: { width: 6, height: 6, borderRadius: '50%', background: has ? (anyOk ? '#0F766E' : '#F0B43C') : 'transparent' } }; });
+    const fieldStyle = err => ({ border: '1.5px solid ' + (err ? '#B42318' : '#e8dcc8'), borderRadius: 12, padding: '11px 12px', fontSize: 15, fontWeight: 300, fontFamily: 'inherit' });
+    const wrap = { display: 'flex', flexDirection: 'column', gap: 6, fontWeight: 500, fontSize: 14 };
+    const mk = (obj, key, label, ph, type = 'text') => ({ label, ph, type, value: s[obj][key], err: s.errs[key] || '', wrap, inputStyle: fieldStyle(s.errs[key]), onChange: e => this.setState({ [obj]: { ...s[obj], [key]: e.target.value }, errs: { ...s.errs, [key]: '' } }) });
+    const validate = () => {
+      const e = {};
+      if (s.step === 2) { if (s.f.title.trim().length < 6) e.title = 'Add a clear title'; if (!s.f.date) e.date = 'Pick a date'; if (!s.f.time) e.time = 'Add a start time'; if (!s.f.venue.trim()) e.venue = 'Where is it happening?'; if (!s.f.locality.trim()) e.locality = 'Which locality?'; }
+      if (s.step === 3) { if (!s.o.org.trim()) e.org = 'Organisation or group name'; if (!s.o.contact.trim()) e.contact = 'Who should we speak to?'; if (!/^\d{10}$/.test(s.o.phone.replace(/\D/g, ''))) e.phone = '10-digit mobile number'; }
+      this.setState({ errs: e }); return !Object.keys(e).length;
+    };
+    const stepNames = ['Template', 'Details', 'Organiser', 'Review'];
+    return {
+      screens: SCREENS.map(([id, label]) => ({ label, onClick: () => this.go(id), style: { ...pill(s.screen === id), padding: '5px 11px', fontSize: 12.5, minHeight: 30 } })),
+      isLocality: s.screen === 'locality', isCalendar: s.screen === 'calendar', isEvent: s.screen === 'event', isSubmit: s.screen === 'submit',
+      navLoc: navA(s.screen === 'locality'), navEv: navA(s.screen !== 'locality'),
+      followLabel: s.follow ? '✓ Following Sohna Road' : '+ Follow this locality', toggleFollow: () => this.setState({ follow: !s.follow }),
+      followStyle: { background: s.follow ? '#E6F1EC' : '#2B1D14', color: s.follow ? '#1E7A4F' : '#FBF4E8', border: 0, borderRadius: 999, padding: '11px 18px', fontSize: 14, fontWeight: 500, cursor: 'pointer' },
+      locStats: Object.keys(counts).map(k => ({ n: counts[k], k, onClick: () => this.setState({ locCat: k }), style: { textAlign: 'left', border: s.locCat === k ? '2px solid #0F766E' : '1px solid #efe3cf', background: s.locCat === k ? '#E6F1EC' : '#fff', borderRadius: 18, padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 2, cursor: 'pointer', fontFamily: 'inherit', color: '#2B1D14' } })),
+      locHosp: [['Sohna Road Care Hospital (sample)', 'Private', 'Small hospital', '1.2 km · Sector 48 · 45 beds · emergency till midnight', 'Recommended by 19 neighbours', false], ['Aravali Multispeciality Hospital', 'Private', 'Large hospital', '6.5 km · 24×7 emergency · 200+ beds', 'Recommended by 41 neighbours', true], ['District Civil Hospital (sample)', 'Government', 'Large hospital', '9 km · free / low-cost · 24×7 emergency', 'Recommended by 28 neighbours', false], ['HomeBridge Recovery (sample)', 'Private', 'Transition care', '2.0 km · ICU step-down · 24 beds', 'Recommended by 8 neighbours', false]].map(([name, own, type, meta, reco, sp]) => ({ name, own, type, meta, reco, sponsored: sp,
+        ownStyle: { background: own === 'Government' ? '#2C4F9E' : '#2B1D14', color: own === 'Government' ? '#fff' : '#FBF4E8', borderRadius: 999, padding: '3px 10px', fontSize: 11.5, fontWeight: 600 },
+        card: { border: sp ? '1.5px dashed #C99A2E' : '1px solid #efe3cf', background: sp ? '#FFFBF0' : '#fff', borderRadius: 18, padding: 16, display: 'flex', flexDirection: 'column', gap: 7, color: '#2B1D14' } })),
+      locCatTitle: `${s.locCat} on Sohna Road`, locProviders: cats[s.locCat].map(([n, d, c]) => ({ n, d, c })),
+      locEvents: EVENTS.filter(e => e.loc === 'Sohna Road').map(e => ({ day: e.d < 10 ? '0' + e.d : e.d, mon: 'NOV', title: e.title, status: e.ok ? '✓ Verified' : 'Awaiting review', statusStyle: stStyle(e.ok), open })),
+      locQs: [{ t: 'Which labs on Sohna Road do home collection on Sundays?', m: 'Sector 49 · 4 replies · Pharmacist answered' }, { t: 'Good physiotherapist for post-surgery rehab near Malibu Town?', m: 'Malibu Town · 7 replies · Resolved' }, { t: 'Is there a night chemist near Sector 48 that delivers?', m: 'Sector 48 · 3 replies' }],
+      goCalendar: () => this.go('calendar'), goSubmit: () => this.go('submit'),
+      typeChips: ['All', 'Health camps', 'Screening', 'Blood drives', 'Vaccination', 'Workshops', 'Talks'].map(t => ({ label: t, onClick: () => this.setState({ evType: t, day: null }), style: pill(s.evType === t) })),
+      evLoc: s.evLoc, onEvLoc: e => this.setState({ evLoc: e.target.value, day: null }), evLocOptions: ['All localities', 'Sector 56', 'Golf Course Road', 'Golf Course Ext. Road', 'Sohna Road', 'DLF Phases 1–5', 'New Gurgaon', 'Online'],
+      freeOnly: s.freeOnly, toggleFree: () => this.setState({ freeOnly: !s.freeOnly, day: null }), verifiedOnly: s.verifiedOnly, toggleVerified: () => this.setState({ verifiedOnly: !s.verifiedOnly, day: null }),
+      days, clearDay: () => this.setState({ day: null }), clearDayStyle: { visibility: s.day ? 'visible' : 'hidden', background: 'none', border: 0, color: '#0F766E', fontSize: 13, cursor: 'pointer' },
+      listTitle: s.day ? `${listEvs.length} event${listEvs.length === 1 ? '' : 's'} on ${s.day} November` : `${listEvs.length} events this month`,
+      evList: listEvs.map(e => { const k = e.d + e.title; const on = s.onCal.includes(k); return { ...e, day: e.d < 10 ? '0' + e.d : e.d, status: e.ok ? '✓ Verified' : 'Awaiting review', statusStyle: stStyle(e.ok), open,
+        cal: () => this.setState({ onCal: on ? s.onCal.filter(x => x !== k) : [...s.onCal, k] }), calLabel: on ? '✓ In calendar' : 'Add to calendar',
+        calStyle: { background: on ? '#E6F1EC' : '#fff', color: on ? '#1E7A4F' : '#2B1D14', border: '1.5px solid ' + (on ? '#1E7A4F' : '#e8dcc8'), borderRadius: 999, padding: '8px 12px', fontSize: 13, cursor: 'pointer' } }; }),
+      noEvents: listEvs.length === 0,
+      previewPending: s.pending, togglePending: () => this.setState({ pending: !s.pending }),
+      evStatus: s.pending ? 'Awaiting review' : '✓ Verified with organiser', evStatusStyle: { ...stStyle(!s.pending), fontSize: 12, padding: '4px 11px' },
+      evFacts: [['WHEN', 'Sunday 15 Nov 2026 · 9 am – 1 pm'], ['WHERE', 'Sector 57 Community Centre, near the main market (ground floor, step-free)'], ['WHO CAN COME', 'Residents aged 55+, from any society'], ['COST', 'Free'], ['REGISTER', 'Recommended: 150 slots. Walk-ins if space allows.'], ['SERVICES', 'Vision test, cataract screening, eye pressure check, referral']].map(([k, v]) => ({ k, v })),
+      register: () => this.setState({ registered: !s.registered }), registerLabel: s.registered ? '✓ Registration request sent to organiser' : 'Register with the organiser',
+      addCal: () => this.setState({ added: !s.added }), addCalLabel: s.added ? '✓ Added' : 'Add to calendar',
+      toggleShare: () => this.setState({ share: !s.share }), shareOpen: s.share,
+      shareText: 'Free eye check-up camp for senior citizens\nSun 15 Nov, 9 am–1 pm · Sector 57 Community Centre\nVerified by HealthGurgaon\nhealthgurgaon.in/e/eye-camp-s57',
+      verifySource: s.pending ? 'SOURCE: RESIDENT SUBMISSION · NOT YET CONFIRMED' : 'VERIFIED: CALLED ORGANISER (RWA SECRETARY) ON 14 OCT 2026 · LAST UPDATED 14 OCT',
+      reportEvent: () => this.setState({ eventReported: true }), reportEventLabel: s.eventReported ? 'Thanks, we’ll re-check this event (ref HG-EV-1290)' : 'Something wrong or cancelled? Report it',
+      steps: stepNames.map((t, i) => ({ n: i + 1, t, bar: { height: 6, borderRadius: 3, background: i + 1 <= s.step ? '#0F766E' : '#efe3cf' }, label: { fontSize: 12.5, fontWeight: i + 1 === s.step ? 600 : 300, color: i + 1 <= s.step ? '#2B1D14' : '#6e5a4b' } })),
+      notSubmitted: !s.submitted, submitted: s.submitted, step1: s.step === 1, step2: s.step === 2, step3: s.step === 3, step4: s.step === 4,
+      templates: TEMPLATES.map(([n, d]) => ({ n, d, onClick: () => this.setState({ tpl: n, step: 2, f: { ...s.f, title: s.f.title || (n === 'Health check-up camp' ? 'Free health check-up camp' : n) } }), style: { textAlign: 'left', border: s.tpl === n ? '2px solid #0F766E' : '1.5px solid #efe3cf', background: s.tpl === n ? '#E6F1EC' : '#fff', borderRadius: 18, padding: 16, display: 'flex', flexDirection: 'column', gap: 4, cursor: 'pointer', fontFamily: 'inherit', color: '#2B1D14', minHeight: 96 } })),
+      detailFields: [mk('f', 'title', 'Title', 'e.g. Free eye check-up camp'), mk('f', 'date', 'Date', '', 'date'), mk('f', 'time', 'Start time', '', 'time'), mk('f', 'venue', 'Venue', 'e.g. Clubhouse, Tower B lobby'), mk('f', 'locality', 'Locality', 'e.g. Sector 56'), mk('f', 'eligibility', 'Who can attend (optional)', 'e.g. Residents 55+')],
+      costChips: ['Free', 'Paid'].map(c => ({ label: c, onClick: () => this.setState({ cost: c }), style: pill(s.cost === c) })),
+      orgTypes: ['RWA', 'Resident group', 'NGO', 'Hospital / clinic', 'Other'].map(o => ({ label: o, onClick: () => this.setState({ orgType: o }), style: pill(s.orgType === o) })),
+      orgFields: [mk('o', 'org', 'Organisation / group name', 'e.g. Sector 57 RWA'), mk('o', 'contact', 'Contact person', 'Full name'), mk('o', 'role', 'Their role (optional)', 'e.g. Secretary'), mk('o', 'phone', 'Mobile number (private)', '10 digits', 'tel')],
+      summary: [['TEMPLATE', s.tpl || '—'], ['TITLE', s.f.title], ['WHEN', `${s.f.date} · ${s.f.time}`], ['WHERE', `${s.f.venue}, ${s.f.locality}`], ['COST', s.cost], ['ORGANISER', `${s.o.org} (${s.orgType})`], ['CONTACT', `${s.o.contact} · number kept private`]].map(([k, v]) => ({ k, v })),
+      consents: ['I’m authorised to share this event on behalf of the organiser.', 'The event offers no individual diagnosis or treatment beyond what qualified professionals provide on site.', 'HealthGurgaon may publish these event details and contact the organiser to verify them.'].map((label, i) => ({ label, on: s.consent[i], onChange: () => { const c = [...s.consent]; c[i] = !c[i]; this.setState({ consent: c, consentErr: false }); } })),
+      consentErr: s.consentErr,
+      back: () => this.setState({ step: Math.max(1, s.step - 1), errs: {} }), backStyle: { visibility: s.step > 1 ? 'visible' : 'hidden', background: '#fff', border: '1.5px solid #e8dcc8', borderRadius: 999, padding: '11px 18px', fontSize: 14, cursor: 'pointer' },
+      nextLabel: s.step === 4 ? 'Submit for review' : 'Continue →',
+      next: () => { if (s.step === 1) return this.setState({ step: 2, tpl: s.tpl || 'Health check-up camp' }); if (s.step < 4) { if (validate()) this.setState({ step: s.step + 1 }); return; } if (s.consent.every(Boolean)) this.setState({ submitted: true }); else this.setState({ consentErr: true }); },
+      submittedTitle: s.f.title,
+      tracker: [['Received', 'Now. Your event is listed as “awaiting review” so residents can see it, clearly labelled.', 'done'], ['Organiser check', 'We’ll call the contact within 2 working days to confirm details.', 'next'], ['Verified & shared', 'Marked verified, added to the calendar and the weekly Health Report.', 'later']].map(([t, d, st]) => ({ t, d, dot: { width: 16, height: 16, borderRadius: '50%', flex: 'none', marginTop: 3, background: st === 'done' ? '#1E7A4F' : st === 'next' ? '#F0B43C' : '#efe3cf' } })),
+      resetForm: () => this.setState({ submitted: false, step: 1, tpl: '', f: { title: '', date: '', time: '', venue: '', locality: '', eligibility: '' }, o: { org: '', contact: '', role: '', phone: '' }, consent: [false, false, false], errs: {} })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><style>body{margin:0;background:#fff;font-family:'Lexend',sans-serif;color:#2B1D14}a{color:#0F766E;text-decoration:none}a:hover{color:#2B1D14}input,select,button,textarea{font-family:inherit}*{box-sizing:border-box}</style></helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+<div style="background:#FBF4E8;border-bottom:1px solid #efe3cf"><div style="max-width:1400px;margin:0 auto;padding:8px 24px;display:flex;gap:6px;align-items:center;flex-wrap:wrap"><a href="Health%20Gurgaon%20Homepage.dc.html" style="font-weight:700;font-size:16px;letter-spacing:-.04em;color:#2B1D14;margin-right:10px">Health<span style="color:#0F766E">Gurgaon</span></a><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#6e5a4b;margin-right:6px">PROTOTYPE · OPS &amp; MOBILE</span><sc-for list="{{ screens }}" as="s" hint-placeholder-count="2"><button onClick="{{ s.onClick }}" style="{{ s.style }}">{{ s.label }}</button></sc-for></div></div>
+
+<sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;display:grid;grid-template-columns:240px minmax(0,1fr);min-height:0">
+<aside style="background:#2B1D14;color:#e8dccb;padding:20px 14px;display:flex;flex-direction:column;gap:4px">
+<span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#F0B43C;padding:0 10px 10px">MODERATION</span>
+<sc-for list="{{ queues }}" as="q" hint-placeholder-count="5"><button onClick="{{ q.onClick }}" style="{{ q.style }}"><span>{{ q.label }}</span><span style="{{ q.countStyle }}">{{ q.count }}</span></button></sc-for>
+<span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#F0B43C;padding:18px 10px 10px">RECORDS</span>
+<button onClick="{{ showAudit }}" style="{{ auditNavStyle }}">Audit log</button>
+<div style="margin-top:auto;padding:12px 10px;display:flex;flex-direction:column;gap:8px"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#c9b8a4">SIGNED IN AS</span><select value="{{ role }}" onChange="{{ onRole }}" style="background:#3a2a1e;color:#FBF4E8;border:1px solid #5a473a;border-radius:10px;padding:8px;font-size:13px"><option>Moderator</option><option>Editor</option><option>Admin</option></select><span style="font-weight:300;font-size:11.5px;line-height:1.5;color:#c9b8a4">{{ roleNote }}</span></div>
+</aside>
+<main style="padding:24px 28px 48px;display:flex;flex-direction:column;gap:20px;min-width:0;background:#fff">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px"><sc-for list="{{ stats }}" as="st" hint-placeholder-count="4"><div style="{{ st.style }}"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#6e5a4b">{{ st.k }}</span><span style="font-weight:700;font-size:28px;letter-spacing:-.03em">{{ st.n }}</span><span style="font-weight:300;font-size:12px;color:#5a473a">{{ st.sub }}</span></div></sc-for></div>
+<sc-if value="{{ auditOpen }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-weight:700;font-size:24px;letter-spacing:-.03em">Audit log</span><span style="font-weight:300;font-size:13.5px;color:#5a473a">Every moderation and edit action, who made it and why. Read-only; retained per policy.</span>
+<div style="border:1px solid #efe3cf;border-radius:18px;overflow:hidden"><sc-for list="{{ audit }}" as="a" hint-placeholder-count="5"><div style="display:grid;grid-template-columns:150px 110px minmax(0,1fr);gap:14px;padding:12px 16px;border-top:1px solid #efe3cf;font-size:13.5px"><span style="font:400 11px 'Spline Sans Mono',monospace;color:#6e5a4b">{{ a.t }}</span><span style="font-weight:500">{{ a.who }}</span><span style="font-weight:300">{{ a.what }}</span></div></sc-for></div></div>
+</sc-if>
+<sc-if value="{{ queueOpen }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:20px;align-items:start">
+<div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-weight:700;font-size:24px;letter-spacing:-.03em">{{ queueTitle }}</span><div style="display:flex;gap:6px"><sc-for list="{{ statusFilters }}" as="f" hint-placeholder-count="3"><button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button></sc-for></div></div>
+<sc-for list="{{ items }}" as="it" hint-placeholder-count="4"><button onClick="{{ it.select }}" style="{{ it.style }}"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#6e5a4b">{{ it.id }} · {{ it.kind }}</span><span style="{{ it.slaStyle }}">{{ it.sla }}</span></div><span style="font-weight:600;font-size:15px;line-height:1.35">{{ it.title }}</span><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span style="{{ it.statusStyle }}">{{ it.status }}</span><sc-for list="{{ it.flags }}" as="fl" hint-placeholder-count="1"><span style="background:#FFF4D6;color:#7A5200;border-radius:999px;padding:2px 8px;font-size:11px;font-weight:600">{{ fl }}</span></sc-for></div></button></sc-for>
+<sc-if value="{{ emptyQueue }}" hint-placeholder-val="{{ false }}"><div style="background:#E6F1EC;border-radius:18px;padding:20px;color:#1E7A4F;font-weight:500">Queue clear. Nothing waiting here.</div></sc-if>
+</div>
+<sc-if value="{{ hasSel }}" hint-placeholder-val="{{ true }}">
+<div style="border:1.5px solid #2B1D14;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:14px;position:sticky;top:20px">
+<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#6e5a4b">{{ sel.id }} · SUBMITTED {{ sel.when }}</span><span style="{{ sel.statusStyle }}">{{ sel.status }}</span></div>
+<span style="font-weight:700;font-size:20px;letter-spacing:-.02em;line-height:1.3">{{ sel.title }}</span>
+<div style="background:#FBF4E8;border-radius:16px;padding:14px 16px;font-weight:300;font-size:14.5px;line-height:1.6;white-space:pre-line">{{ sel.body }}</div>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#6e5a4b">AUTOMATED CHECKS</span><sc-for list="{{ sel.checks }}" as="c" hint-placeholder-count="3"><div style="display:flex;gap:8px;font-size:13.5px;align-items:center"><span style="{{ c.dot }}">{{ c.icon }}</span>{{ c.t }}</div></sc-for></div>
+<sc-if value="{{ sel.private }}" hint-placeholder-val="{{ false }}"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center;background:#fff;border:1px dashed #C99A2E;border-radius:12px;padding:10px 12px;font-size:13px"><span>{{ privateText }}</span><sc-if value="{{ canReveal }}" hint-placeholder-val="{{ false }}"><button onClick="{{ reveal }}" style="background:none;border:0;color:#0F766E;font-size:12.5px;cursor:pointer">Reveal (logged)</button></sc-if></div></sc-if>
+<label style="display:flex;flex-direction:column;gap:6px;font-weight:500;font-size:13.5px">Reason (required, shown in audit log)<select value="{{ reason }}" onChange="{{ onReason }}" style="border:1.5px solid #e8dcc8;border-radius:12px;padding:10px;font-size:14px;background:#fff"><option value="">Choose a reason</option><sc-for list="{{ reasons }}" as="r" hint-placeholder-count="4"><option value="{{ r }}">{{ r }}</option></sc-for></select></label>
+<sc-if value="{{ actErr }}" hint-placeholder-val="{{ false }}"><span style="color:#B42318;font-size:13px;font-weight:500">{{ actErr }}</span></sc-if>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ actions }}" as="a" hint-placeholder-count="4"><button onClick="{{ a.onClick }}" disabled="{{ a.disabled }}" title="{{ a.title }}" style="{{ a.style }}">{{ a.label }}</button></sc-for></div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+</main>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;background:#ECE6DA;padding:36px 24px 56px">
+<div style="max-width:1300px;margin:0 auto;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:6px"><h1 style="margin:0;font-weight:700;font-size:32px;letter-spacing:-.04em">Mobile navigation &amp; search</h1><span style="font-weight:300;font-size:15px;color:#5a473a;max-width:760px">Thumb-reach bottom bar, a full-screen search that remembers your locality, and an emergency shortcut on every screen. All three phones are interactive.</span></div>
+<div style="display:flex;gap:32px;flex-wrap:wrap;justify-content:center;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:10px;align-items:center"><div style="width:360px;height:740px;background:#fff;border-radius:44px;border:10px solid #1a120c;overflow:hidden;display:flex;flex-direction:column;position:relative">
+<div style="height:34px;display:flex;justify-content:space-between;align-items:center;padding:0 22px;font-size:12px;font-weight:600"><span>9:41</span><span>●●● ▮</span></div>
+<div style="padding:6px 16px 10px;display:flex;justify-content:space-between;align-items:center"><span style="font-weight:700;font-size:19px;letter-spacing:-.045em">Health<span style="color:#0F766E">Gurgaon</span></span><a href="#" style="background:#B42318;color:#fff;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:600">SOS 112</a></div>
+<div style="flex:1;overflow:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:12px">
+<sc-if value="{{ mHome }}" hint-placeholder-val="{{ true }}">
+<span style="font-weight:700;font-size:24px;line-height:1.1;letter-spacing:-.035em">Find healthcare around your neighbourhood.</span>
+<button onClick="{{ openSearchPhone }}" style="text-align:left;background:#FBF4E8;border:1.5px solid #2B1D14;border-radius:16px;padding:14px;font-size:14.5px;color:#6e5a4b;cursor:pointer">Doctor, lab, chemist… <span style="float:right;color:#0F766E;font-weight:600">Sector 56 ▾</span></button>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><sc-for list="{{ mCats }}" as="c" hint-placeholder-count="6"><div style="background:#FBF4E8;border-radius:14px;padding:12px;font-size:13.5px;font-weight:600;min-height:52px">{{ c }}</div></sc-for></div>
+<div style="background:#2B1D14;color:#FBF4E8;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:4px"><span style="font:500 10px 'Spline Sans Mono',monospace;color:#F0B43C">SUN 15 NOV · ✓ VERIFIED</span><span style="font-weight:600;font-size:15px">Free eye check-up camp for seniors</span><span style="font-weight:300;font-size:12px;color:#e8dccb">Sector 57 Community Centre</span></div>
+</sc-if>
+<sc-if value="{{ mEvents }}" hint-placeholder-val="{{ false }}"><span style="font-weight:700;font-size:22px;letter-spacing:-.03em">Events near you</span><sc-for list="{{ mEventList }}" as="e" hint-placeholder-count="3"><div style="border:1px solid #efe3cf;border-radius:16px;padding:12px;display:flex;gap:10px;align-items:center"><span style="background:#2B1D14;color:#FBF4E8;border-radius:10px;padding:6px 8px;font-weight:700;text-align:center;min-width:44px">{{ e.d }}</span><span style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600;font-size:13.5px">{{ e.t }}</span><span style="font-weight:300;font-size:11.5px;color:#5a473a">{{ e.m }}</span></span></div></sc-for></sc-if>
+<sc-if value="{{ mAsk }}" hint-placeholder-val="{{ false }}"><span style="font-weight:700;font-size:22px;letter-spacing:-.03em">Ask your neighbourhood</span><sc-for list="{{ mQs }}" as="q" hint-placeholder-count="3"><div style="border-bottom:1px solid #efe3cf;padding:10px 0;display:flex;flex-direction:column;gap:3px"><span style="font-weight:500;font-size:14px">{{ q.t }}</span><span style="font-weight:300;font-size:11.5px;color:#6e5a4b">{{ q.m }}</span></div></sc-for></sc-if>
+<sc-if value="{{ mSaved }}" hint-placeholder-val="{{ false }}"><span style="font-weight:700;font-size:22px;letter-spacing:-.03em">Saved</span><div style="background:#FBF4E8;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:3px"><span style="font-weight:600;font-size:14px">Dr. Ananya Rao</span><span style="font-weight:300;font-size:12px;color:#5a473a">Paediatrician · checked 4 days ago</span></div><div style="background:#FBF4E8;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:3px"><span style="font-weight:600;font-size:14px">Sai Medicos</span><span style="font-weight:300;font-size:12px;color:#5a473a">24h chemist · open now</span></div><span style="font-weight:300;font-size:12px;color:#6e5a4b">Saved items stay on this device until you sign in.</span></sc-if>
+</div>
+<div style="border-top:1px solid #efe3cf;display:grid;grid-template-columns:repeat(5,1fr);padding:6px 4px 14px;background:#fff"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5"><button onClick="{{ t.onClick }}" style="{{ t.style }}"><span style="{{ t.dot }}"></span>{{ t.label }}</button></sc-for></div>
+</div><span style="font:500 11px 'Spline Sans Mono',monospace;color:#6e5a4b">1 · HOME + BOTTOM BAR</span></div>
+
+<div style="display:flex;flex-direction:column;gap:10px;align-items:center"><div style="width:360px;height:740px;background:#fff;border-radius:44px;border:10px solid #1a120c;overflow:hidden;display:flex;flex-direction:column">
+<div style="height:34px;display:flex;justify-content:space-between;align-items:center;padding:0 22px;font-size:12px;font-weight:600"><span>9:41</span><span>●●● ▮</span></div>
+<div style="padding:6px 14px 10px;display:flex;gap:8px;align-items:center"><span style="font-size:20px;padding:0 4px">←</span><input value="{{ mq }}" onChange="{{ onMq }}" placeholder="Search healthcare in Gurgaon" style="flex:1;border:1.5px solid #2B1D14;border-radius:14px;padding:12px;font-size:15px;min-width:0"></div>
+<div style="padding:0 14px 10px;display:flex;gap:6px;overflow-x:auto"><sc-for list="{{ mLocs }}" as="l" hint-placeholder-count="4"><button onClick="{{ l.onClick }}" style="{{ l.style }}">{{ l.label }}</button></sc-for></div>
+<div style="flex:1;overflow:auto;padding:0 14px 14px;display:flex;flex-direction:column;gap:6px">
+<sc-if value="{{ mqEmpty }}" hint-placeholder-val="{{ true }}"><span style="font:500 10px 'Spline Sans Mono',monospace;color:#6e5a4b;padding:8px 0 2px">RECENT</span><sc-for list="{{ recent }}" as="r" hint-placeholder-count="2"><button onClick="{{ r.onClick }}" style="text-align:left;background:none;border:0;padding:10px 0;border-bottom:1px solid #efe3cf;font-size:14.5px;cursor:pointer">↺  {{ r.label }}</button></sc-for><span style="font:500 10px 'Spline Sans Mono',monospace;color:#6e5a4b;padding:14px 0 2px">POPULAR IN {{ mLocUpper }}</span><div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ popular }}" as="p" hint-placeholder-count="5"><button onClick="{{ p.onClick }}" style="background:#FBF4E8;border:0;border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer">{{ p.label }}</button></sc-for></div></sc-if>
+<sc-if value="{{ mqHas }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ mResults }}" as="r" hint-placeholder-count="3"><div style="border:1px solid #efe3cf;border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:4px"><span style="font:500 10px 'Spline Sans Mono',monospace;color:#0F766E">{{ r.kind }}</span><span style="font-weight:600;font-size:14.5px">{{ r.n }}</span><span style="font-weight:300;font-size:12px;color:#5a473a">{{ r.d }}</span></div></sc-for><sc-if value="{{ mNone }}" hint-placeholder-val="{{ false }}"><div style="background:#FBF4E8;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px"><span style="font-weight:600;font-size:15px">Nothing verified for “{{ mq }}” yet</span><span style="font-weight:300;font-size:13px;color:#5a473a">Try a specialty like “child doctor”, or ask your neighbourhood.</span></div></sc-if></sc-if>
+</div>
+</div><span style="font:500 11px 'Spline Sans Mono',monospace;color:#6e5a4b">2 · FULL-SCREEN SEARCH (TYPE TO TRY)</span></div>
+
+<div style="display:flex;flex-direction:column;gap:10px;align-items:center"><div style="width:360px;height:740px;background:#2B1D14;border-radius:44px;border:10px solid #1a120c;overflow:hidden;display:flex;flex-direction:column;color:#FBF4E8">
+<div style="height:34px;display:flex;justify-content:space-between;align-items:center;padding:0 22px;font-size:12px;font-weight:600"><span>9:41</span><span>●●● ▮</span></div>
+<div style="padding:8px 18px 16px;display:flex;justify-content:space-between;align-items:center"><span style="font-weight:700;font-size:19px;letter-spacing:-.045em">Health<span style="color:#F0B43C">Gurgaon</span></span><span style="width:36px;height:36px;border-radius:50%;background:#3a2a1e;display:flex;align-items:center;justify-content:center">×</span></div>
+<div style="flex:1;overflow:auto;padding:0 18px 18px;display:flex;flex-direction:column;gap:4px">
+<sc-for list="{{ menu }}" as="m" hint-placeholder-count="5"><div style="border-bottom:1px solid #4a3a2e"><button onClick="{{ m.toggle }}" style="width:100%;display:flex;justify-content:space-between;background:none;border:0;color:#FBF4E8;padding:15px 0;font:600 18px 'Lexend',sans-serif;cursor:pointer;text-align:left">{{ m.t }}<span style="color:#F0B43C">{{ m.icon }}</span></button><sc-if value="{{ m.open }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:2px;padding:0 0 12px"><sc-for list="{{ m.items }}" as="i" hint-placeholder-count="3"><span style="font-weight:300;font-size:14.5px;color:#e8dccb;padding:7px 0">{{ i }}</span></sc-for></div></sc-if></div></sc-for>
+<div style="display:flex;gap:8px;padding-top:16px"><button onClick="{{ mToggleLang }}" style="flex:1;background:#3a2a1e;color:#FBF4E8;border:0;border-radius:14px;padding:12px;font-size:14px;cursor:pointer">{{ mLangLabel }}</button><button onClick="{{ mToggleLarge }}" style="{{ mLargeStyle }}">A+ Larger text</button></div>
+<a href="#" style="margin-top:12px;background:#F0B43C;color:#2B1D14;border-radius:14px;padding:13px;text-align:center;font-weight:600">Sign in with OTP</a>
+</div>
+</div><span style="font:500 11px 'Spline Sans Mono',monospace;color:#6e5a4b">3 · MENU SHEET</span></div>
+
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SCREENS = [['admin', 'Admin & moderation'], ['mobile', 'Mobile nav & search']];
+const ITEMS = [
+  { id: 'RV-8830', q: 'Reviews', kind: 'Review', title: 'Review of Dr. Ananya Rao (Paediatrician)', when: '16 OCT, 10:12', slaH: 2, body: 'Visited: October 2026 · Routine check-up\n“Explained the vaccination schedule clearly. Waited about 25 minutes. Reception could return calls faster.”', checks: [[true, 'No phone numbers or medical details detected'], [true, 'No conflict declared'], [false, 'Reviewer’s first review on the platform']], flags: ['First-time reviewer'], priv: 'Reviewer: Sector 57 resident, verified by OTP' },
+  { id: 'RV-8826', q: 'Reviews', kind: 'Review', title: 'Review of Smile Square Dental', when: '15 OCT, 21:40', slaH: 14, body: '“Worst dentist in Gurgaon, a total fraud, they should be shut down.”', checks: [[false, 'Possible defamatory language'], [false, 'No visit details given'], [true, 'No personal data']], flags: ['Language flag'], priv: 'Reviewer: new account, 2 reviews today' },
+  { id: 'HG-2041', q: 'Reports', kind: 'Correction', title: 'Wrong Saturday hours: Little Steps Clinic', when: '16 OCT, 09:05', slaH: 30, body: 'Field: Timings\n“The clinic now closes at 7 pm on Saturdays.” Reporter says first-hand.', checks: [[true, 'Factual field, not an allegation'], [true, 'Reporter has 3 accepted reports']], flags: [], priv: 'Reporter email on file' },
+  { id: 'EV-5182', q: 'Events', kind: 'Event', title: 'Diabetes and BP screening, Sohna Road (9 Nov)', when: '14 OCT, 18:22', slaH: 6, body: 'Organiser: resident group, Sector 49\nFree · 8 am–12 pm · Community hall\nServices: BP, random blood sugar, referral', checks: [[true, 'Template: health check-up camp'], [false, 'Organiser not yet called'], [true, 'No paid promotion detected']], flags: ['Needs organiser call'], priv: 'Organiser phone: private' },
+  { id: 'CL-0311', q: 'Claims', kind: 'Profile claim', title: 'Claim of Dr. Vikram Sethi (Physiotherapist)', when: '13 OCT, 12:00', slaH: 48, body: 'Claimant: “I’m the doctor”\nRegistration: entered\nOTP to clinic number on record: passed', checks: [[true, 'OTP matched clinic number'], [false, 'Registration number not yet matched on council register']], flags: [], priv: 'Claimant contact on file' },
+  { id: 'CM-1904', q: 'Community', kind: 'Flagged post', title: 'Reply flagged in “24-hour chemist near GCER”', when: '16 OCT, 08:31', slaH: 1, body: '“Call this guy, he gives the medicine without prescription: [number removed]”', checks: [[false, 'Suggests obtaining medicine without prescription'], [true, 'Phone number auto-redacted']], flags: ['Safety risk'], priv: 'Posted by: resident, Sector 65' }
+];
+const QUEUES = ['Reviews', 'Reports', 'Events', 'Claims', 'Community'];
+class Component extends DCLogic {
+  state = { screen: 'admin', queue: 'Reviews', filter: 'Waiting', sel: 'RV-8830', status: {}, reason: '', actErr: '', role: 'Moderator', revealed: {}, audit: false,
+    log: [['16 OCT 09:58', 'S. Bansal', 'Approved event EV-5170 · reason: organiser confirmed by call'], ['16 OCT 09:40', 'R. Mehta', 'Rejected review RV-8819 · reason: contains patient details'], ['15 OCT 18:12', 'Admin', 'Changed role of A. Dutta to Moderator'], ['15 OCT 17:03', 'S. Bansal', 'Updated hours for Sai Medicos · source: phone call'], ['15 OCT 11:21', 'R. Mehta', 'Merged duplicate listing: Smile Square Dental']],
+    tab: 'Home', mq: '', mLoc: 'Sector 56', menuOpen: 0, mHi: false, mLarge: false };
+  componentDidMount() { this._h = () => { const h = location.hash.slice(1); if (SCREENS.some(s => s[0] === h)) this.setState({ screen: h }); }; this._h(); window.addEventListener('hashchange', this._h); }
+  componentWillUnmount() { window.removeEventListener('hashchange', this._h); }
+  renderVals() {
+    const s = this.state;
+    const pill = on => ({ border: on ? '1.5px solid #2B1D14' : '1.5px solid #e8dcc8', background: on ? '#2B1D14' : '#fff', color: on ? '#FBF4E8' : '#2B1D14', borderRadius: 999, padding: '6px 12px', fontSize: 12.5, cursor: 'pointer', minHeight: 32, fontFamily: 'inherit' });
+    const st = id => s.status[id] || 'Waiting';
+    const stStyle = v => ({ Waiting: ['#FFF4D6', '#7A5200'], Approved: ['#E6F1EC', '#1E7A4F'], Rejected: ['#FBEDEB', '#B42318'], 'Info requested': ['#E8ECF7', '#2C4F9E'], Escalated: ['#2B1D14', '#F0B43C'] }[v]).reduce((a, c, i) => (i ? { ...a, color: c } : { borderRadius: 999, padding: '3px 10px', fontSize: 12, fontWeight: 600, background: c }), {});
+    const inQ = ITEMS.filter(i => i.q === s.queue);
+    const shown = inQ.filter(i => s.filter === 'All' || (s.filter === 'Waiting' ? st(i.id) === 'Waiting' : st(i.id) !== 'Waiting'));
+    const sel = ITEMS.find(i => i.id === s.sel && i.q === s.queue);
+    const canEditCreds = s.role !== 'Moderator';
+    const act = (label, status, bg, fg, needsEditor) => ({ label, disabled: !!(needsEditor && !canEditCreds), title: needsEditor && !canEditCreds ? 'Editors and admins only' : '',
+      style: { background: bg, color: fg, border: bg === '#fff' ? '1.5px solid #e8dcc8' : 0, borderRadius: 999, padding: '10px 16px', fontSize: 13.5, fontWeight: 500, cursor: needsEditor && !canEditCreds ? 'not-allowed' : 'pointer', opacity: needsEditor && !canEditCreds ? 0.4 : 1 },
+      onClick: () => { if (needsEditor && !canEditCreds) return; if (!s.reason) return this.setState({ actErr: 'Choose a reason first. It’s recorded in the audit log.' });
+        const now = new Date(); const t = `16 OCT ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        this.setState({ status: { ...s.status, [sel.id]: status }, log: [[t, `You (${s.role})`, `${status} ${sel.kind.toLowerCase()} ${sel.id} · reason: ${s.reason}`], ...s.log], reason: '', actErr: '' }); } });
+    const reasonsBy = { Reviews: ['Genuine experience, meets policy', 'Contains personal or medical details', 'Unsupported allegation / defamatory', 'Suspected fake or conflicted review'], Reports: ['Confirmed with provider', 'Confirmed with primary source', 'Could not verify', 'Duplicate report'], Events: ['Organiser confirmed by call', 'Organiser unreachable', 'Promotional, not a health event', 'Unsafe or misleading claims'], Claims: ['Registration matched, OTP passed', 'Registration mismatch', 'Insufficient authorisation'], Community: ['Within guidelines', 'Medical advice / unsafe', 'Harassment or personal attack', 'Spam or undisclosed promotion'] };
+    const queueStats = QUEUES.map(q => ITEMS.filter(i => i.q === q && st(i.id) === 'Waiting').length);
+    const waiting = queueStats.reduce((a, b) => a + b, 0);
+    const mCatalog = [['DOCTOR', 'Dr. Ananya Rao', 'Paediatrician · Sector 56 · checked 4 days ago', 'child doctor paediatrician kids'], ['CLINIC', 'Little Steps Children’s Clinic', 'Sector 56 · vaccinations', 'child clinic paediatrician vaccination'], ['CHEMIST', 'Sai Medicos', 'Open 24h · Sector 56 · delivery', 'chemist pharmacy medicine 24 open'], ['LAB', 'Prakash Path Labs', 'Home collection · open till 8 pm', 'lab blood test home collection'], ['DOCTOR', 'Dr. Vikram Sethi', 'Physiotherapist · home visits', 'physio knee rehab physiotherapy']];
+    const q = s.mq.trim().toLowerCase();
+    const mResults = q ? mCatalog.filter(c => (c[1] + ' ' + c[3]).toLowerCase().includes(q)).map(([kind, n, d]) => ({ kind, n, d })) : [];
+    const tabNames = ['Home', 'Search', 'Events', 'Ask', 'Saved'];
+    return {
+      screens: SCREENS.map(([id, label]) => ({ label, onClick: () => { this.setState({ screen: id }); history.replaceState(null, '', '#' + id); }, style: pill(s.screen === id) })),
+      isAdmin: s.screen === 'admin', isMobile: s.screen === 'mobile',
+      queues: QUEUES.map((qn, i) => ({ label: qn, count: queueStats[i], onClick: () => this.setState({ queue: qn, audit: false, sel: (ITEMS.find(x => x.q === qn) || {}).id, reason: '', actErr: '' }),
+        style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: !s.audit && s.queue === qn ? '#3a2a1e' : 'transparent', color: '#FBF4E8', border: 0, borderRadius: 10, padding: '10px', fontSize: 14, cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' },
+        countStyle: { background: queueStats[i] ? '#F0B43C' : '#4a3a2e', color: '#2B1D14', borderRadius: 999, minWidth: 22, padding: '1px 7px', fontSize: 11.5, fontWeight: 700, textAlign: 'center' } })),
+      showAudit: () => this.setState({ audit: true }), auditOpen: s.audit, queueOpen: !s.audit,
+      auditNavStyle: { display: 'flex', background: s.audit ? '#3a2a1e' : 'transparent', color: '#FBF4E8', border: 0, borderRadius: 10, padding: '10px', fontSize: 14, cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' },
+      role: s.role, onRole: e => this.setState({ role: e.target.value }),
+      roleNote: s.role === 'Moderator' ? 'Can approve, reject and escalate. Can’t verify credentials or see reporter contact details.' : s.role === 'Editor' ? 'Can also verify credentials and edit listings.' : 'Full access, including roles and audit export.',
+      stats: [['WAITING', waiting, 'across all queues'], ['OLDEST', '48h', 'CL-0311 · claim'], ['SLA AT RISK', ITEMS.filter(i => i.slaH <= 2 && st(i.id) === 'Waiting').length, 'due within 2 hours'], ['MEDIAN RESPONSE', '5.2h', 'last 7 days']].map(([k, n, sub], i) => ({ k, n, sub, style: { background: i === 2 && n ? '#FBEDEB' : '#FBF4E8', borderRadius: 18, padding: 16, display: 'flex', flexDirection: 'column', gap: 4 } })),
+      audit: s.log.map(([t, who, what]) => ({ t, who, what })),
+      queueTitle: `${s.queue} queue`,
+      statusFilters: ['Waiting', 'Done', 'All'].map(f => ({ label: f, onClick: () => this.setState({ filter: f }), style: pill(s.filter === f) })),
+      items: shown.map(i => ({ ...i, status: st(i.id), statusStyle: stStyle(st(i.id)), sla: st(i.id) !== 'Waiting' ? 'DONE' : i.slaH <= 2 ? `DUE IN ${i.slaH}H` : `${i.slaH}H LEFT`,
+        slaStyle: { font: "500 10.5px 'Spline Sans Mono',monospace", color: st(i.id) === 'Waiting' && i.slaH <= 2 ? '#B42318' : '#6e5a4b' },
+        select: () => this.setState({ sel: i.id, reason: '', actErr: '' }),
+        style: { textAlign: 'left', border: s.sel === i.id ? '2px solid #2B1D14' : '1px solid #efe3cf', background: '#fff', borderRadius: 18, padding: 14, display: 'flex', flexDirection: 'column', gap: 6, cursor: 'pointer', fontFamily: 'inherit', color: '#2B1D14' } })),
+      emptyQueue: shown.length === 0, hasSel: !!sel,
+      sel: sel ? { ...sel, status: st(sel.id), statusStyle: stStyle(st(sel.id)), private: !!sel.priv, checks: sel.checks.map(([ok, t]) => ({ t, icon: ok ? '✓' : '!', dot: { width: 20, height: 20, borderRadius: '50%', flex: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, background: ok ? '#E6F1EC' : '#FFF4D6', color: ok ? '#1E7A4F' : '#7A5200' } })) } : { checks: [] },
+      privateText: sel ? (s.revealed[sel.id] ? sel.priv : 'Private contact details hidden') : '', canReveal: sel && !s.revealed[sel.id] && s.role !== 'Moderator',
+      reveal: () => this.setState({ revealed: { ...s.revealed, [sel.id]: true }, log: [['16 OCT now', `You (${s.role})`, `Viewed private details of ${sel.id}`], ...s.log] }),
+      reasons: reasonsBy[s.queue], reason: s.reason, onReason: e => this.setState({ reason: e.target.value, actErr: '' }), actErr: s.actErr,
+      actions: sel ? [act('Approve', 'Approved', '#0F766E', '#fff', s.queue === 'Claims'), act('Reject', 'Rejected', '#B42318', '#fff', false), act('Request info', 'Info requested', '#fff', '#2B1D14', false), act('Escalate', 'Escalated', '#2B1D14', '#F0B43C', false)] : [],
+      tabs: tabNames.map(t => ({ label: t, onClick: () => this.setState({ tab: t === 'Search' ? 'Home' : t }), style: { background: 'none', border: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, fontSize: 11, fontWeight: s.tab === t ? 600 : 400, color: s.tab === t ? '#0F766E' : '#5a473a', cursor: 'pointer', padding: '6px 0', minHeight: 44, fontFamily: 'inherit' }, dot: { width: 22, height: 22, borderRadius: 7, background: s.tab === t ? '#0F766E' : '#efe3cf' } })),
+      mHome: s.tab === 'Home', mEvents: s.tab === 'Events', mAsk: s.tab === 'Ask', mSaved: s.tab === 'Saved',
+      openSearchPhone: () => this.setState({ mq: '' }),
+      mCats: ['Doctors', 'Diagnostics', '24h chemists', 'Health camps', 'Physio', 'Home care'],
+      mEventList: [['15', 'Free eye check-up for seniors', 'Sector 57 · Free · ✓ Verified'], ['14', 'World Diabetes Day screening', 'GCER · Free · ✓ Verified'], ['09', 'Diabetes and BP screening', 'Sohna Road · Awaiting review']].map(([d, t, m]) => ({ d, t, m })),
+      mQs: [['Any 24-hour chemist near GCER that delivers?', '6 replies · Resolved'], ['Labs with Sunday home collection on Sohna Road?', '4 replies · Pharmacist answered'], ['Physio for home visits, DLF Phase 2?', '9 replies']].map(([t, m]) => ({ t, m })),
+      mq: s.mq, onMq: e => this.setState({ mq: e.target.value }), mqEmpty: !q, mqHas: !!q, mResults, mNone: !!q && mResults.length === 0,
+      mLocs: ['Sector 56', 'Sohna Road', 'GCER', 'DLF'].map(l => ({ label: l, onClick: () => this.setState({ mLoc: l }), style: { ...pill(s.mLoc === l), whiteSpace: 'nowrap' } })), mLocUpper: s.mLoc.toUpperCase(),
+      recent: ['Paediatrician', 'Chemist open now'].map(l => ({ label: l, onClick: () => this.setState({ mq: l === 'Chemist open now' ? 'chemist' : l }) })),
+      popular: ['Child doctor', 'Lab', 'Physio', 'Chemist', 'Vaccination'].map(l => ({ label: l, onClick: () => this.setState({ mq: l }) })),
+      menu: [['Find care', ['Doctors', 'Hospitals & clinics', 'Diagnostics', 'Chemists', 'Blood banks']], ['Localities', ['Sector 56', 'Golf Course Road', 'Sohna Road', 'All localities']], ['Events & camps', ['Calendar', 'Submit an event']], ['Community', ['Ask your neighbourhood', 'Healthy Neighbourhoods', 'Volunteer']], ['Trust centre', ['How verification works', 'Report incorrect info']]].map(([t, items], i) => ({ t, items, open: s.menuOpen === i, icon: s.menuOpen === i ? '−' : '+', toggle: () => this.setState({ menuOpen: s.menuOpen === i ? -1 : i }) })),
+      mToggleLang: () => this.setState({ mHi: !s.mHi }), mLangLabel: s.mHi ? 'हिं ✓ | EN' : 'EN ✓ | हिं',
+      mToggleLarge: () => this.setState({ mLarge: !s.mLarge }), mLargeStyle: { flex: 1, background: s.mLarge ? '#F0B43C' : '#3a2a1e', color: s.mLarge ? '#2B1D14' : '#FBF4E8', border: 0, borderRadius: 14, padding: 12, fontSize: 14, cursor: 'pointer' }
+    };
+  }
+}
+</script>
+</body>
+</html>

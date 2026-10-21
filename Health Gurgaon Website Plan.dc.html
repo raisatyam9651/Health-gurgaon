@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Mukta:wght@500;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><style>body{margin:0;background:#FBF4E8;font-family:'Lexend',sans-serif;color:#2B1D14}a{color:#0F766E}a:hover{color:#2B1D14}</style></helmet>
+<div style="max-width:1280px;margin:0 auto;padding:40px 32px 80px;display:flex;flex-direction:column;gap:56px">
+
+<header style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:16px">
+<svg width="64" height="64" viewBox="0 0 100 100"><circle cx="84" cy="50" r="9" fill="#0F766E"></circle><circle cx="74.04" cy="74.04" r="9" fill="#F0B43C"></circle><circle cx="50" cy="84" r="9" fill="#0F766E"></circle><circle cx="25.96" cy="74.04" r="9" fill="#F0B43C"></circle><circle cx="16" cy="50" r="9" fill="#0F766E"></circle><circle cx="25.96" cy="25.96" r="9" fill="#F0B43C"></circle><circle cx="50" cy="16" r="9" fill="#0F766E"></circle><circle cx="74.04" cy="25.96" r="9" fill="#F0B43C"></circle><rect x="36" y="42" width="8" height="20" rx="1.5" fill="#2B1D14"></rect><rect x="46" y="32" width="9" height="30" rx="1.5" fill="#2B1D14"></rect><rect x="57" y="45" width="7" height="17" rx="1.5" fill="#2B1D14"></rect><rect x="48.5" y="36" width="4" height="4" fill="#F0B43C"></rect></svg>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-weight:700;font-size:15px;letter-spacing:.02em;color:#6e5a4b">HEALTHGURGAON · WEBSITE PLAN</span><h1 style="margin:0;font-weight:700;font-size:44px;line-height:1.02;letter-spacing:-.045em">Every page, every function,<br>one city first.</h1></div>
+</div>
+<div style="max-width:420px;font-weight:300;font-size:15px;line-height:1.6;color:#5a473a;text-wrap:pretty">The full Gurgaon edition: 25 page types across 11 sections. Built once as the template every future city inherits. Delhi only changes data, colour and its local heart.</div>
+</header>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span style="font:500 12px 'Spline Sans Mono',monospace;color:#0F766E">01</span><h2 style="margin:0;font-weight:700;font-size:28px;letter-spacing:-.03em">Sitemap</h2><span style="font-weight:300;font-size:14px;color:#6e5a4b">One domain, city in the path: healthgurgaon.in redirects to /gurgaon</span></div>
+<div style="background:#fff;border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span style="background:#2B1D14;color:#FBF4E8;border-radius:10px;padding:10px 16px;font-weight:600;font-size:15px">Home · /gurgaon</span><span style="font-weight:300;font-size:13px;color:#6e5a4b">Global: search · locality picker · EN | हिं · Larger text · Emergency 112 · Sign in (OTP)</span></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px">
+<sc-for list="{{ sitemap }}" as="s" hint-placeholder-count="9">
+<div style="background:#FBF4E8;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600;font-size:15.5px;letter-spacing:-.01em">{{ s.name }}</span><span style="font:400 10.5px 'Spline Sans Mono',monospace;color:#0F766E">{{ s.url }}</span></div>
+<div style="display:flex;flex-direction:column;gap:5px">
+<sc-for list="{{ s.pages }}" as="p" hint-placeholder-count="3"><div style="display:flex;gap:8px;font-weight:300;font-size:13px;line-height:1.35;color:#5a473a"><span style="color:#F0B43C;font-weight:700">·</span><span>{{ p }}</span></div></sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span style="font:500 12px 'Spline Sans Mono',monospace;color:#0F766E">02</span><h2 style="margin:0;font-weight:700;font-size:28px;letter-spacing:-.03em">Page inventory &amp; design order</h2><span style="font-weight:300;font-size:14px;color:#6e5a4b">Design order follows the resident's first journey: search, then compare, then act</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ phaseTabs }}" as="t" hint-placeholder-count="4"><button onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button></sc-for>
+</div>
+<div style="background:#fff;border-radius:18px;overflow:hidden">
+<div style="display:grid;grid-template-columns:44px minmax(150px,1.1fr) minmax(170px,1fr) minmax(220px,2fr) 96px;gap:16px;padding:12px 20px;background:#2B1D14;color:#FBF4E8;font:500 10.5px 'Spline Sans Mono',monospace;letter-spacing:.06em"><span>#</span><span>PAGE</span><span>URL</span><span>KEY MODULES &amp; FUNCTIONS</span><span>PHASE</span></div>
+<sc-for list="{{ pages }}" as="p" hint-placeholder-count="10">
+<div style="display:grid;grid-template-columns:44px minmax(150px,1.1fr) minmax(170px,1fr) minmax(220px,2fr) 96px;gap:16px;padding:14px 20px;border-top:1px solid #efe3cf;align-items:start">
+<span style="font:500 12px 'Spline Sans Mono',monospace;color:#6e5a4b">{{ p.n }}</span>
+<div style="display:flex;flex-direction:column;gap:3px"><span style="font-weight:600;font-size:14.5px">{{ p.name }}</span><span style="font-weight:300;font-size:12.5px;color:#6e5a4b;line-height:1.4">{{ p.goal }}</span></div>
+<span style="font:400 11px/1.5 'Spline Sans Mono',monospace;color:#0F766E;word-break:break-all">{{ p.url }}</span>
+<span style="font-weight:300;font-size:13px;line-height:1.5;color:#3d2e22">{{ p.mods }}</span>
+<span style="{{ p.phaseStyle }}">{{ p.phase }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span style="font:500 12px 'Spline Sans Mono',monospace;color:#0F766E">03</span><h2 style="margin:0;font-weight:700;font-size:28px;letter-spacing:-.03em">Core functionality</h2><span style="font-weight:300;font-size:14px;color:#6e5a4b">Shared systems that every page plugs into</span></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
+<sc-for list="{{ features }}" as="f" hint-placeholder-count="9">
+<div style="background:#fff;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font-weight:600;font-size:16px;letter-spacing:-.01em">{{ f.name }}</span><span style="{{ f.phaseStyle }}">{{ f.phase }}</span></div>
+<span style="font-weight:300;font-size:13.5px;line-height:1.55;color:#5a473a;text-wrap:pretty">{{ f.desc }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span style="font:500 12px 'Spline Sans Mono',monospace;color:#0F766E">04</span><h2 style="margin:0;font-weight:700;font-size:28px;letter-spacing:-.03em">Roles &amp; permissions</h2><span style="font-weight:300;font-size:14px;color:#6e5a4b">Most of the site needs no account. Nobody sees private data they don't need.</span></div>
+<div style="background:#fff;border-radius:18px;overflow-x:auto">
+<div style="min-width:900px">
+<div style="display:grid;grid-template-columns:200px repeat(8,minmax(0,1fr));padding:12px 20px;background:#2B1D14;color:#FBF4E8;font:500 10px 'Spline Sans Mono',monospace;letter-spacing:.04em;gap:8px">
+<span>ACTION</span><sc-for list="{{ roles }}" as="r" hint-placeholder-count="8"><span style="text-align:center">{{ r }}</span></sc-for>
+</div>
+<sc-for list="{{ perms }}" as="row" hint-placeholder-count="9">
+<div style="display:grid;grid-template-columns:200px repeat(8,minmax(0,1fr));padding:11px 20px;border-top:1px solid #efe3cf;gap:8px;align-items:center">
+<span style="font-weight:400;font-size:13px">{{ row.action }}</span>
+<sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="8"><span style="{{ c.style }}">{{ c.mark }}</span></sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+<span style="font-weight:300;font-size:12.5px;color:#6e5a4b">● allowed · ◐ own items only / after verification · blank = not allowed. Every moderator and admin action is written to the audit log.</span>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span style="font:500 12px 'Spline Sans Mono',monospace;color:#0F766E">05</span><h2 style="margin:0;font-weight:700;font-size:28px;letter-spacing:-.03em">How we'll build the designs</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px">
+<sc-for list="{{ sprints }}" as="s" hint-placeholder-count="5">
+<div style="background:#2B1D14;color:#FBF4E8;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px">
+<span style="font:500 11px 'Spline Sans Mono',monospace;color:#F0B43C;letter-spacing:.06em">{{ s.tag }}</span>
+<span style="font-weight:600;font-size:17px;letter-spacing:-.015em;line-height:1.25">{{ s.title }}</span>
+<span style="font-weight:300;font-size:13px;line-height:1.55;color:#e8dccb">{{ s.pages }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { phase: 'All' };
+  renderVals() {
+    const ph = p => {
+      const c = { MVP: ['#0F766E', '#fff'], 'Phase 2': ['#F0B43C', '#2B1D14'], 'Phase 3': ['#E8DCC8', '#2B1D14'] }[p] || ['#eee', '#2B1D14'];
+      return { padding: '4px 9px', borderRadius: 999, background: c[0], color: c[1], font: "500 10.5px 'Spline Sans Mono',monospace", justifySelf: 'start', alignSelf: 'start', whiteSpace: 'nowrap' };
+    };
+    const sitemap = [
+      { name: 'Find care', url: '/gurgaon/search', pages: ['Search results + filters', 'Specialty directory', 'Doctor profile', 'Hospital / clinic profile', 'Diagnostics, imaging, pharmacy', 'Emergency, ambulance, blood banks'] },
+      { name: 'Localities', url: '/gurgaon/localities', pages: ['Locality index + map', 'Locality page (e.g. Sohna Road)', 'Only indexed when content is sufficient'] },
+      { name: 'Events & camps', url: '/gurgaon/events', pages: ['Calendar + list + filters', 'Camp / event detail', 'Submit an event', 'Report outdated event'] },
+      { name: 'Health Report', url: '/gurgaon/news', pages: ['News index by category', 'Article', 'Weekly Gurgaon Health Report', 'Corrections log'] },
+      { name: 'Guides', url: '/gurgaon/guides', pages: ['Guide library', 'Guide article (reviewed by)', 'Seasonal & senior hubs'] },
+      { name: 'Ask your neighbourhood', url: '/gurgaon/community', pages: ['Forum home (topics, localities)', 'Topic list', 'Discussion thread', 'Ask a question', 'Community guidelines'] },
+      { name: 'Healthy Neighbourhoods', url: '/gurgaon/healthy-neighbourhoods', pages: ['RWA programme landing', 'Register / claim a society', 'Public society profile', 'Society dashboard (private)'] },
+      { name: 'Get involved', url: '/gurgaon/volunteer', pages: ['Community Health Champions', 'Role pages + apply', 'Write a review', 'Suggest a correction', 'Claim a provider profile'] },
+      { name: 'Trust centre', url: '/trust', pages: ['How verification works', 'Badges explained', 'Editorial & sponsorship policy', 'Review policy', 'Privacy, terms, disclaimer'] },
+      { name: 'Account', url: '/account', pages: ['Sign in with OTP', 'Saved & followed', 'My reviews & reports', 'WhatsApp / email consent'] },
+      { name: 'Admin', url: '/admin', pages: ['Moderation queue', 'Verification desk', 'Event approvals', 'Listings editor', 'Audit log'] }
+    ];
+    const pages = [
+      ['City homepage', 'Find care, see what is on, join in', '/gurgaon', 'Search + locality, categories, recently verified, camps, community Q&A, Health Report, RWA band, contribute CTAs', 'MVP'],
+      ['Search results', 'Narrow to the right provider fast', '/gurgaon/search?q=', 'Filters (specialty, locality, language, fees, open now, accessibility), list/map toggle, verification + freshness on every card, sort explained', 'MVP'],
+      ['Specialty directory', 'Browse when you don\'t know the name', '/gurgaon/doctors/paediatrics', 'Specialty explainer (reviewed), localities with coverage, provider list, related guides, FAQ', 'MVP'],
+      ['Doctor profile', 'Decide and contact with confidence', '/gurgaon/doctor/{slug}', 'Credentials + registration no., affiliations, fees, languages, timings (if maintained), reviews, last checked, correction + claim', 'MVP'],
+      ['Hospital / clinic profile', 'Understand services and access', '/gurgaon/hospital/{slug}', 'Departments, doctors here, emergency info (sourced), accessibility checklist, photos, reviews, sponsor label', 'MVP'],
+      ['Pharmacy / diagnostic page', 'Is it open, what do they do', '/gurgaon/pharmacy/{slug}', 'Hours with source + date, home collection/delivery, tests offered, accessibility, report wrong hours', 'MVP'],
+      ['Locality page', 'Know your area\'s healthcare', '/gurgaon/sohna-road', 'Summary of verified resources, map, top categories, upcoming camps, local guides, discussions', 'MVP'],
+      ['Events calendar', 'What\'s on near me', '/gurgaon/events', 'Month/list view, filters (type, locality, free, date), verified vs awaiting review, add to calendar', 'MVP'],
+      ['Camp / event detail', 'Can I go, and how', '/gurgaon/events/{slug}', 'Organiser, date, venue, eligibility, cost, registration, services, verification source, share to WhatsApp, report', 'MVP'],
+      ['Submit an event', 'Organisers list in 3 minutes', '/gurgaon/events/submit', 'Template picker, 4-step form, organiser verification, consent, review status tracker', 'MVP'],
+      ['Health Report / news', 'Trusted local updates', '/gurgaon/news', 'Categories, dated + sourced stories, labels for opinion / sponsored, weekly report signup', 'MVP'],
+      ['Guide article', 'Learn to navigate local care', '/gurgaon/guides/{slug}', 'Reviewed-by block, last updated, local examples, related providers, disclaimer', 'MVP'],
+      ['RWA programme landing', 'Why and how societies join', '/gurgaon/healthy-neighbourhoods', 'Benefits, activity examples, steps, verification needs, register CTA, FAQs', 'MVP'],
+      ['Volunteer recruitment', 'Become a Champion', '/gurgaon/volunteer', 'Roles, commitment, paid vs voluntary, training, code of conduct, application form', 'MVP'],
+      ['Write a review', 'Share a genuine experience', '/review/{provider}', 'Guided questions (not star-only), privacy warnings, no medical records, conflict declaration', 'MVP'],
+      ['Claim a profile', 'Providers manage their listing', '/claim/{provider}', 'Identity + registration check, ownership proof, editable vs locked fields, right of reply', 'MVP'],
+      ['Report incorrect info', 'Fix facts quickly', '/report/{item}', 'Fact vs allegation split, field picker, evidence, status updates, response-time promise', 'MVP'],
+      ['Search & no-results states', 'Never a dead end', '—', 'Did you mean, nearby localities, suggest a listing, ask the community', 'MVP'],
+      ['Mobile nav & search', 'One-thumb access', '—', 'Bottom bar, full-screen search, recent + popular, locality chip, emergency shortcut', 'MVP'],
+      ['Admin & moderation', 'Keep data and community safe', '/admin', 'Queues (reviews, reports, events, claims), verification desk, SLA timers, audit log', 'MVP'],
+      ['Community forum', 'Ask neighbours', '/gurgaon/community', 'Topics, locality filters, follow, resolved, verified answers, guidelines prompt', 'Phase 2'],
+      ['Discussion thread', 'Get a useful answer', '/gurgaon/community/t/{id}', 'Helpful reactions, verified professional badge, report, mark resolved, auto-redaction of phone numbers', 'Phase 2'],
+      ['Society profile + dashboard', 'RWAs run initiatives', '/gurgaon/society/{slug}', 'Public: initiatives, upcoming, completed. Private: create event, volunteers, reports', 'Phase 2'],
+      ['Health access map', 'See it spatially', '/gurgaon/map', 'Verified layers: pharmacies, labs, hospitals, blood banks; accessibility filter', 'Phase 2'],
+      ['Volunteer matching', 'Right helper, right event', '/gurgaon/volunteer/opportunities', 'Opportunities board, skills, availability, organiser confirmation', 'Phase 3']
+    ].map(([name, goal, url, mods, phase], i) => ({ n: String(i + 1).padStart(2, '0'), name, goal, url, mods, phase, phaseStyle: ph(phase) }));
+    const filtered = this.state.phase === 'All' ? pages : pages.filter(p => p.phase === this.state.phase);
+    const phaseTabs = ['All', 'MVP', 'Phase 2', 'Phase 3'].map(l => {
+      const on = this.state.phase === l;
+      return { label: l === 'All' ? `All pages (${pages.length})` : `${l} (${pages.filter(p => p.phase === l).length})`, onClick: () => this.setState({ phase: l }),
+        style: { border: on ? '1.5px solid #2B1D14' : '1.5px solid #E8DCC8', background: on ? '#2B1D14' : '#fff', color: on ? '#FBF4E8' : '#2B1D14', borderRadius: 999, padding: '8px 14px', font: "500 13px 'Lexend',sans-serif", cursor: 'pointer' } };
+    });
+    const features = [
+      ['Search & filters', 'Typo-tolerant search across doctors, services, conditions-to-specialty mapping and localities. Filters for language, fees, open now, accessibility.', 'MVP'],
+      ['Locality system', 'Canonical Gurgaon locality list (sectors, roads, phases) with aliases, so “GCER”, “Golf Course Ext.” and “Sector 65” resolve correctly.', 'MVP'],
+      ['Verification & freshness', 'Badges: credentials checked, facility checked, organiser verified, community submitted, sponsored. Every fact shows source and date.', 'MVP'],
+      ['Corrections & reports', 'Any listing, event or article can be reported. Facts go to the editor queue; allegations go to a separate review path.', 'MVP'],
+      ['Reviews', 'Guided experience reviews with privacy guards, conflict declarations, moderation before publish, provider right of reply.', 'MVP'],
+      ['Profile claiming', 'Providers verify identity and registration, then edit contact, timings and services; credentials stay editor-controlled.', 'MVP'],
+      ['Event submission', 'Templates for common camps; organiser verification; clear “awaiting review” state until approved.', 'MVP'],
+      ['Bilingual & accessible', 'EN | हिं toggle, larger-text mode, high contrast, screen-reader labels, 44px targets, works on low bandwidth.', 'MVP'],
+      ['Consent & WhatsApp', 'Opt-in to the city channel or weekly report with clear purpose and one-tap exit. No phone numbers shown publicly.', 'MVP'],
+      ['Admin & audit', 'Role-based queues, SLA timers, bulk verification tools, full audit log of edits and moderation decisions.', 'MVP'],
+      ['Community Q&A', 'Questions, answers, helpful reactions, resolved state, verified-professional answers, auto-redaction of personal data.', 'Phase 2'],
+      ['RWA tools', 'Society profiles, event templates, volunteer requests, completed-activity reports without personal data.', 'Phase 2']
+    ].map(([name, desc, phase]) => ({ name, desc, phase, phaseStyle: ph(phase) }));
+    const roles = ['Visitor', 'Resident', 'Champion', 'Provider', 'RWA rep', 'Moderator', 'Editor', 'Admin'];
+    const P = {
+      'Search & read everything': '●●●●●●●●', 'Report incorrect info': '●●●●●●●●', 'Write a review': ' ● ●  ●● ', 'Ask / answer in community': ' ●●●●●●●',
+      'Submit an event': ' ●●●●●●●', 'Edit own provider profile': '   ◐   ●●', 'Manage society profile': '    ◐  ●●', 'Approve events & reviews': '     ●●●',
+      'Edit credentials / verification': '      ●●', 'See reporter contact details': '     ◐●●', 'Manage roles & audit log': '       ●'
+    };
+    const perms = Object.entries(P).map(([action, s]) => ({ action, cells: s.padEnd(8).slice(0, 8).split('').map(ch => ({ mark: ch.trim() || '', style: { textAlign: 'center', color: ch === '◐' ? '#9A5418' : '#0F766E', fontSize: 15 } })) }));
+    const sprints = [
+      { tag: 'STEP 1 · NOW', title: 'Homepage', pages: 'Desktop + mobile, interactive: locality picker, search, Hindi toggle, larger text.' },
+      { tag: 'STEP 2', title: 'Find care flow', pages: 'Search results, no-results state, specialty directory, doctor profile, clinic/hospital, pharmacy/diagnostic.' },
+      { tag: 'STEP 3', title: 'Local & events', pages: 'Locality page, events calendar, camp detail, submit an event.' },
+      { tag: 'STEP 4', title: 'Content & trust', pages: 'Health Report, guide article, trust centre, review, claim, report incorrect info.' },
+      { tag: 'STEP 5', title: 'Community & ops', pages: 'RWA landing + society dashboard, volunteer page, forum + thread, admin moderation, mobile nav.' }
+    ];
+    return { sitemap, pages: filtered, phaseTabs, features, roles, perms, sprints };
+  }
+}
+</script>
+</body>
+</html>

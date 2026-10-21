@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Mukta:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><style>body{margin:0;background:#fff;font-family:'Lexend',sans-serif;color:#2B1D14}a{color:#0F766E;text-decoration:none}a:hover{color:#2B1D14}input,select,button{font-family:inherit}*{box-sizing:border-box}</style></helmet>
+<div style="{{ rootStyle }}">
+
+<div style="background:#2B1D14;color:#FBF4E8;font-size:13px">
+<div style="max-width:1240px;margin:0 auto;padding:8px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+<div style="display:flex;gap:4px 14px;align-items:center;flex-wrap:wrap;min-width:0"><span style="background:#B42318;color:#fff;font-weight:600;padding:3px 10px;border-radius:999px;font-size:12px;white-space:nowrap">{{ t.emergency }}</span><span style="font-weight:300;color:#e8dccb">{{ t.emergencyNote }}</span></div>
+<div style="display:flex;gap:6px;align-items:center">
+<button onClick="{{ toggleLang }}" style="background:transparent;border:1px solid #5a473a;color:#FBF4E8;border-radius:999px;padding:5px 12px;font-size:12.5px;cursor:pointer;min-height:32px">{{ langLabel }}</button>
+<button onClick="{{ toggleLarge }}" style="{{ largeBtnStyle }}">A+ {{ t.larger }}</button>
+<span style="padding:5px 10px;font-size:12.5px;color:#e8dccb">Gurgaon ▾</span>
+</div>
+</div>
+</div>
+
+<header style="background:#fff;border-bottom:1px solid #efe3cf;position:sticky;top:0;z-index:10">
+<div style="max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+<a href="#" style="display:flex;align-items:center;gap:10px;color:#2B1D14">
+<svg width="38" height="38" viewBox="0 0 100 100"><circle cx="84" cy="50" r="9" fill="#0F766E"></circle><circle cx="74.04" cy="74.04" r="9" fill="#F0B43C"></circle><circle cx="50" cy="84" r="9" fill="#0F766E"></circle><circle cx="25.96" cy="74.04" r="9" fill="#F0B43C"></circle><circle cx="16" cy="50" r="9" fill="#0F766E"></circle><circle cx="25.96" cy="25.96" r="9" fill="#F0B43C"></circle><circle cx="50" cy="16" r="9" fill="#0F766E"></circle><circle cx="74.04" cy="25.96" r="9" fill="#F0B43C"></circle><rect x="36" y="42" width="8" height="20" rx="1.5" fill="#2B1D14"></rect><rect x="46" y="32" width="9" height="30" rx="1.5" fill="#2B1D14"></rect><rect x="57" y="45" width="7" height="17" rx="1.5" fill="#2B1D14"></rect><rect x="48.5" y="36" width="4" height="4" fill="#F0B43C"></rect></svg>
+<span style="font-weight:700;font-size:23px;letter-spacing:-.045em">Health<span style="color:#0F766E">Gurgaon</span></span>
+</a>
+<nav style="display:flex;gap:4px;flex-wrap:wrap;font-size:14.5px">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="5"><a href="{{ n.href }}" style="color:#2B1D14;padding:9px 12px;border-radius:10px" style-hover="background:#FBF4E8">{{ n.label }}</a></sc-for>
+</nav>
+<div style="display:flex;gap:8px">
+<a href="Health%20Gurgaon%20Content%20and%20Trust.dc.html#report" style="border:1.5px solid #2B1D14;color:#2B1D14;border-radius:999px;padding:9px 16px;font-weight:500;font-size:14px">{{ t.contribute }}</a>
+<a href="Health%20Gurgaon%20Admin%20and%20Mobile.dc.html#mobile" style="background:#2B1D14;color:#FBF4E8;border-radius:999px;padding:10px 18px;font-weight:500;font-size:14px">{{ t.signin }}</a>
+</div>
+</div>
+</header>
+
+<section style="background:#FBF4E8">
+<div style="max-width:1240px;margin:0 auto;padding:56px 24px 60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:40px;align-items:center">
+<div style="display:flex;flex-direction:column;gap:22px">
+<span style="font:500 12px 'Spline Sans Mono',monospace;letter-spacing:.06em;color:#0F766E">{{ t.kicker }}</span>
+<h1 style="{{ h1Style }}">{{ t.h1 }}</h1>
+<p style="margin:0;font-weight:300;font-size:18px;line-height:1.6;color:#5a473a;max-width:540px;text-wrap:pretty">{{ t.sub }}</p>
+<form onSubmit="{{ onSearch }}" style="display:flex;flex-wrap:wrap;background:#fff;border:2px solid #2B1D14;border-radius:22px;overflow:hidden;max-width:620px">
+<input value="{{ query }}" onChange="{{ onQuery }}" placeholder="{{ t.searchPh }}" aria-label="What do you need" style="flex:1 1 240px;border:0;outline:0;padding:16px 18px;font-size:16px;font-weight:400;color:#2B1D14;background:transparent;min-width:0">
+<select value="{{ locality }}" onChange="{{ onLocality }}" aria-label="Locality" style="flex:0 1 190px;border:0;border-left:1px solid #efe3cf;padding:0 14px;font-size:15px;color:#2B1D14;background:#fff;min-height:56px;cursor:pointer">
+<sc-for list="{{ localityOptions }}" as="o" hint-placeholder-count="6"><option value="{{ o }}">{{ o }}</option></sc-for>
+</select>
+<button type="submit" style="flex:0 0 auto;background:#0F766E;color:#fff;border:0;padding:0 26px;font-size:16px;font-weight:600;cursor:pointer;min-height:56px" style-hover="background:#0B5E57">{{ t.search }}</button>
+</form>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ quick }}" as="q" hint-placeholder-count="5"><button onClick="{{ q.onClick }}" style="background:#fff;border:1px solid #e8dcc8;border-radius:999px;padding:8px 14px;font-size:13.5px;color:#2B1D14;cursor:pointer;min-height:38px" style-hover="border-color:#2B1D14">{{ q.label }}</button></sc-for>
+</div>
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}"><div style="background:#2B1D14;color:#FBF4E8;border-radius:14px;padding:12px 16px;font-size:14px;max-width:620px">{{ toast }}</div></sc-if>
+<div style="display:flex;gap:10px;align-items:center;font-size:13.5px;color:#5a473a;font-weight:300;flex-wrap:wrap"><span style="width:20px;height:20px;border-radius:50%;background:#1E7A4F;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">✓</span>{{ t.trust }}<a href="Health%20Gurgaon%20Content%20and%20Trust.dc.html#trust" style="font-weight:500">{{ t.howVerify }} →</a></div>
+</div>
+<div style="position:relative;min-height:420px;border-radius:28px;overflow:hidden;background:repeating-linear-gradient(135deg,#efe3cf 0 12px,#f6ecdc 12px 24px)">
+<span style="position:absolute;left:20px;top:18px;font:400 11.5px 'Spline Sans Mono',monospace;color:#6e5a4b;background:#FBF4E8;padding:4px 8px;border-radius:6px">PHOTO · residents at a society health camp, Gurgaon</span>
+<div style="position:absolute;left:20px;right:20px;bottom:20px;background:#fff;border-radius:20px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;box-shadow:0 12px 30px -12px rgba(43,29,20,.35)">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#0F766E;letter-spacing:.06em">{{ nextLabel }}</span><span style="background:#E6F1EC;color:#1E7A4F;border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:600">✓ Organiser verified</span></div>
+<span style="font-weight:600;font-size:19px;letter-spacing:-.02em;line-height:1.25">{{ heroEvent.title }}</span>
+<span style="font-weight:300;font-size:13.5px;color:#5a473a">{{ heroEvent.when }} · {{ heroEvent.where }} · {{ heroEvent.cost }}</span>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:56px 24px 24px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">{{ t.browse }}</h2><a href="Health%20Gurgaon%20Find%20Care.dc.html#results" style="font-weight:500;font-size:14.5px">All services →</a></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px">
+<sc-for list="{{ categories }}" as="c" hint-placeholder-count="12">
+<a href="{{ c.href }}" style="background:#FBF4E8;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:6px;color:#2B1D14;min-height:104px;border:1.5px solid transparent" style-hover="border-color:#0F766E;background:#fff">
+<span style="width:10px;height:10px;border-radius:50%;background:#F0B43C"></span>
+<span style="font-weight:600;font-size:15.5px;letter-spacing:-.01em">{{ c.name }}</span>
+<span style="font-weight:300;font-size:12.5px;color:#6e5a4b;line-height:1.4">{{ c.desc }}</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="background:#2B1D14;color:#FBF4E8;margin-top:32px">
+<div style="max-width:1240px;margin:0 auto;padding:52px 24px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:8px;max-width:720px"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#F0B43C;letter-spacing:.06em">TOP LISTS · OCTOBER 2026</span><h2 style="margin:0;font-weight:700;font-size:36px;line-height:1.06;letter-spacing:-.04em">Gurgaon’s top-rated healthcare, ranked by verified patients</h2><span style="font-weight:300;font-size:15px;line-height:1.6;color:#e8dccb">One published method for every list. Government, private and charitable facilities are compared like for like. Nobody can pay to rank.</span></div><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#lists" style="background:#F0B43C;color:#2B1D14;border-radius:999px;padding:12px 20px;font-size:14.5px;font-weight:600">All top lists →</a></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px">
+<a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#listicle" style="background:#fff;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;color:#2B1D14" style-hover="box-shadow:0 0 0 2px #F0B43C"><div style="background:#0F766E;color:#fff;padding:16px 18px 12px;display:flex;justify-content:space-between;align-items:flex-end"><span style="font-weight:700;font-size:36px;letter-spacing:-.05em;line-height:1">Top 10</span><span style="font:500 10px 'Spline Sans Mono',monospace;letter-spacing:.06em">DOCTORS</span></div><div style="padding:14px 18px 18px;display:flex;flex-direction:column;gap:5px"><span style="font-weight:600;font-size:16.5px;letter-spacing:-.015em;line-height:1.3">Top paediatricians in Gurgaon</span><span style="font-weight:300;font-size:12.5px;color:#5a473a">1,284 verified reviews</span></div></a>
+<a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#listicle" style="background:#fff;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;color:#2B1D14" style-hover="box-shadow:0 0 0 2px #F0B43C"><div style="background:#F0B43C;color:#2B1D14;padding:16px 18px 12px;display:flex;justify-content:space-between;align-items:flex-end"><span style="font-weight:700;font-size:36px;letter-spacing:-.05em;line-height:1">Top 15</span><span style="font:500 10px 'Spline Sans Mono',monospace;letter-spacing:.06em">HOSPITALS</span></div><div style="padding:14px 18px 18px;display:flex;flex-direction:column;gap:5px"><span style="font-weight:600;font-size:16.5px;letter-spacing:-.015em;line-height:1.3">Top hospitals, by size &amp; type</span><span style="font-weight:300;font-size:12.5px;color:#5a473a">Large, small, nursing homes</span></div></a>
+<a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#listicle" style="background:#fff;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;color:#2B1D14" style-hover="box-shadow:0 0 0 2px #F0B43C"><div style="background:#9A5418;color:#fff;padding:16px 18px 12px;display:flex;justify-content:space-between;align-items:flex-end"><span style="font-weight:700;font-size:36px;letter-spacing:-.05em;line-height:1">Top 8</span><span style="font:500 10px 'Spline Sans Mono',monospace;letter-spacing:.06em">CARE CENTRES</span></div><div style="padding:14px 18px 18px;display:flex;flex-direction:column;gap:5px"><span style="font-weight:600;font-size:16.5px;letter-spacing:-.015em;line-height:1.3">Transition care &amp; rehab centres</span><span style="font-weight:300;font-size:12.5px;color:#5a473a">After surgery, stroke, ICU</span></div></a>
+<a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#listicle" style="background:#fff;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;color:#2B1D14" style-hover="box-shadow:0 0 0 2px #F0B43C"><div style="background:#2C4F9E;color:#fff;padding:16px 18px 12px;display:flex;justify-content:space-between;align-items:flex-end"><span style="font-weight:700;font-size:36px;letter-spacing:-.05em;line-height:1">Top 6</span><span style="font:500 10px 'Spline Sans Mono',monospace;letter-spacing:.06em">GOVERNMENT</span></div><div style="padding:14px 18px 18px;display:flex;flex-direction:column;gap:5px"><span style="font-weight:600;font-size:16.5px;letter-spacing:-.015em;line-height:1.3">Government hospitals &amp; health centres</span><span style="font-weight:300;font-size:12.5px;color:#5a473a">Free and low-cost care</span></div></a>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#facilities" style="border:1px solid #5a473a;color:#FBF4E8;border-radius:999px;padding:8px 14px;font-size:13px">Government</a><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#facilities" style="border:1px solid #5a473a;color:#FBF4E8;border-radius:999px;padding:8px 14px;font-size:13px">Private</a><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#facilities" style="border:1px solid #5a473a;color:#FBF4E8;border-radius:999px;padding:8px 14px;font-size:13px">Charitable / trust</a><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#facilities" style="border:1px solid #5a473a;color:#FBF4E8;border-radius:999px;padding:8px 14px;font-size:13px">Nursing homes</a><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#facilities" style="border:1px solid #5a473a;color:#FBF4E8;border-radius:999px;padding:8px 14px;font-size:13px">Transition care</a><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#facilities" style="border:1px solid #5a473a;color:#FBF4E8;border-radius:999px;padding:8px 14px;font-size:13px">Hospice &amp; palliative</a><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#facilities" style="border:1px solid #5a473a;color:#FBF4E8;border-radius:999px;padding:8px 14px;font-size:13px">Dialysis centres</a></div>
+</div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:52px 24px 12px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:6px;max-width:680px"><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">Patient stories</h2><span style="font-weight:300;font-size:14.5px;line-height:1.55;color:#6e5a4b">Video experiences from Gurgaon residents: consented, visit-confirmed, privacy-edited and never paid for.</span></div><div style="display:flex;gap:8px;flex-wrap:wrap"><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#stories" style="border:1.5px solid #2B1D14;color:#2B1D14;border-radius:999px;padding:9px 16px;font-size:14px;font-weight:500">All stories</a><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#stories" style="background:#0F766E;color:#fff;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:500">Share your story</a></div></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px">
+<a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#stories" style="display:flex;flex-direction:column;gap:9px;color:#2B1D14"><div style="position:relative;aspect-ratio:4/5;border-radius:20px;background:repeating-linear-gradient(135deg,#e3d6c0 0 12px,#ecdfca 12px 24px)"><span style="position:absolute;left:10px;top:10px;font:400 10px 'Spline Sans Mono',monospace;background:#FBF4E8;color:#6e5a4b;padding:3px 7px;border-radius:5px">VIDEO · Sector 49</span><span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#2B1D14;color:#F0B43C;display:flex;align-items:center;justify-content:center;font-size:18px">▶</span><span style="position:absolute;right:10px;bottom:10px;font:500 11px 'Spline Sans Mono',monospace;background:#2B1D14;color:#FBF4E8;padding:3px 7px;border-radius:5px">3:12</span></div><span style="font-weight:600;font-size:15px;line-height:1.35">How my father learnt to walk again after his stroke</span><span style="align-self:flex-start;background:#2B1D14;color:#FBF4E8;border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:600">Private · Transition care</span></a>
+<a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#stories" style="display:flex;flex-direction:column;gap:9px;color:#2B1D14"><div style="position:relative;aspect-ratio:4/5;border-radius:20px;background:repeating-linear-gradient(135deg,#e3d6c0 0 12px,#ecdfca 12px 24px)"><span style="position:absolute;left:10px;top:10px;font:400 10px 'Spline Sans Mono',monospace;background:#FBF4E8;color:#6e5a4b;padding:3px 7px;border-radius:5px">VIDEO · Sector 10</span><span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#2B1D14;color:#F0B43C;display:flex;align-items:center;justify-content:center;font-size:18px">▶</span><span style="position:absolute;right:10px;bottom:10px;font:500 11px 'Spline Sans Mono',monospace;background:#2B1D14;color:#FBF4E8;padding:3px 7px;border-radius:5px">4:30</span></div><span style="font-weight:600;font-size:15px;line-height:1.35">Free cataract screening at the civil hospital</span><span style="align-self:flex-start;background:#2C4F9E;color:#fff;border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:600">Government hospital</span></a>
+<a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#stories" style="display:flex;flex-direction:column;gap:9px;color:#2B1D14"><div style="position:relative;aspect-ratio:4/5;border-radius:20px;background:repeating-linear-gradient(135deg,#e3d6c0 0 12px,#ecdfca 12px 24px)"><span style="position:absolute;left:10px;top:10px;font:400 10px 'Spline Sans Mono',monospace;background:#FBF4E8;color:#6e5a4b;padding:3px 7px;border-radius:5px">VIDEO · DLF Phase 2</span><span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#2B1D14;color:#F0B43C;display:flex;align-items:center;justify-content:center;font-size:18px">▶</span><span style="position:absolute;right:10px;bottom:10px;font:500 11px 'Spline Sans Mono',monospace;background:#2B1D14;color:#FBF4E8;padding:3px 7px;border-radius:5px">3:48</span></div><span style="font-weight:600;font-size:15px;line-height:1.35">Giving birth at a small nursing home</span><span style="align-self:flex-start;background:#2B1D14;color:#FBF4E8;border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:600">Private · Nursing home</span></a>
+<a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#stories" style="display:flex;flex-direction:column;gap:9px;color:#2B1D14"><div style="position:relative;aspect-ratio:4/5;border-radius:20px;background:repeating-linear-gradient(135deg,#e3d6c0 0 12px,#ecdfca 12px 24px)"><span style="position:absolute;left:10px;top:10px;font:400 10px 'Spline Sans Mono',monospace;background:#FBF4E8;color:#6e5a4b;padding:3px 7px;border-radius:5px">VIDEO · GCER</span><span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#2B1D14;color:#F0B43C;display:flex;align-items:center;justify-content:center;font-size:18px">▶</span><span style="position:absolute;right:10px;bottom:10px;font:500 11px 'Spline Sans Mono',monospace;background:#2B1D14;color:#FBF4E8;padding:3px 7px;border-radius:5px">2:57</span></div><span style="font-weight:600;font-size:15px;line-height:1.35">Dialysis three times a week, and keeping my job</span><span style="align-self:flex-start;background:#9A5418;color:#fff;border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:600">Charitable trust</span></a>
+</div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:40px 24px;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:6px"><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">Recently verified near {{ locality }}</h2><span style="font-weight:300;font-size:14.5px;color:#6e5a4b">Listed by most recently checked, not by who pays. <a href="Health%20Gurgaon%20Content%20and%20Trust.dc.html#trust">How we order lists</a></span></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ locTabs }}" as="l" hint-placeholder-count="5"><button onClick="{{ l.onClick }}" style="{{ l.style }}">{{ l.label }}</button></sc-for></div>
+</div>
+<sc-if value="{{ hasProviders }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px">
+<sc-for list="{{ providers }}" as="p" hint-placeholder-count="4">
+<article style="border:1px solid #efe3cf;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px;background:#fff">
+<div style="display:flex;gap:12px;align-items:center">
+<div style="width:48px;height:48px;border-radius:50%;background:#FBF4E8;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;color:#0F766E;flex:none">{{ p.initials }}</div>
+<div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-weight:600;font-size:16px;letter-spacing:-.015em">{{ p.name }}</span><span style="font-weight:300;font-size:13px;color:#5a473a">{{ p.type }}</span></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:300;color:#3d2e22">
+<span>{{ p.where }}</span><span>{{ p.langs }}</span><span>{{ p.extra }}</span>
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<span style="background:#E6F1EC;color:#1E7A4F;border-radius:999px;padding:4px 10px;font-size:11.5px;font-weight:600">✓ {{ p.badge }}</span>
+<span style="font:400 11px 'Spline Sans Mono',monospace;color:#6e5a4b;padding:5px 0">CHECKED {{ p.checked }}</span>
+</div>
+<div style="display:flex;gap:8px;margin-top:auto">
+<a href="Health%20Gurgaon%20Find%20Care.dc.html#doctor" style="flex:1;text-align:center;background:#2B1D14;color:#FBF4E8;border-radius:999px;padding:10px;font-size:13.5px;font-weight:500">View profile</a>
+<a href="Health%20Gurgaon%20Find%20Care.dc.html#doctor" style="flex:1;text-align:center;border:1.5px solid #e8dcc8;color:#2B1D14;border-radius:999px;padding:9px;font-size:13.5px;font-weight:500">Contact</a>
+</div>
+</article>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ noProviders }}" hint-placeholder-val="{{ false }}">
+<div style="background:#FBF4E8;border-radius:20px;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:6px;max-width:620px"><span style="font-weight:600;font-size:18px">No recently verified listings in {{ locality }} yet.</span><span style="font-weight:300;font-size:14.5px;color:#5a473a;line-height:1.55">We only show what we've checked. Try a nearby locality, or tell us about a clinic, lab or chemist you use.</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button onClick="{{ resetLocality }}" style="border:1.5px solid #2B1D14;background:#fff;border-radius:999px;padding:10px 16px;font-size:14px;cursor:pointer">Show Sector 56</button><a href="Health%20Gurgaon%20Content%20and%20Trust.dc.html#report" style="background:#0F766E;color:#fff;border-radius:999px;padding:11px 18px;font-size:14px;font-weight:500">Suggest a listing</a></div>
+</div>
+</sc-if>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:32px 24px 8px;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:6px;max-width:700px"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#0F766E;letter-spacing:.06em">FEATURED HOSPITALS</span><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">Hospitals serving {{ locality }}</h2><span style="font-weight:300;font-size:14.5px;line-height:1.55;color:#6e5a4b">The main hospitals residents of this area use, chosen by our editors for coverage and access, with government and private facilities shown side by side.</span></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ hospOwnTabs }}" as="o" hint-placeholder-count="4"><button onClick="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}</button></sc-for></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:14px">
+<sc-for list="{{ featuredHosp }}" as="h" hint-placeholder-count="4">
+<a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#business" style="{{ h.cardStyle }}" style-hover="box-shadow:0 0 0 2px #0F766E">
+<div style="height:120px;background:repeating-linear-gradient(135deg,#efe3cf 0 10px,#f6ecdc 10px 20px);position:relative"><span style="position:absolute;left:12px;top:12px;font:400 10px 'Spline Sans Mono',monospace;background:#FBF4E8;color:#6e5a4b;padding:3px 7px;border-radius:5px">PHOTO · {{ h.photo }}</span><sc-if value="{{ h.sponsored }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;right:12px;top:12px;background:#2B1D14;color:#F0B43C;border-radius:6px;padding:3px 8px;font:500 10px 'Spline Sans Mono',monospace">SPONSORED</span></sc-if><sc-if value="{{ h.emergency }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:12px;bottom:12px;background:#B42318;color:#fff;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:600">24×7 emergency</span></sc-if></div>
+<div style="padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px;flex:1">
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span style="{{ h.ownStyle }}">{{ h.own }}</span><span style="background:#FBF4E8;border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:600">{{ h.type }}</span></div>
+<span style="font-weight:600;font-size:17px;letter-spacing:-.015em;line-height:1.3">{{ h.name }}</span>
+<span style="font-weight:300;font-size:13px;color:#5a473a">{{ h.meta }}</span>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ h.specs }}" as="sp" hint-placeholder-count="3"><span style="border:1px solid #efe3cf;border-radius:999px;padding:3px 9px;font-size:11.5px">{{ sp }}</span></sc-for></div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:8px;border-top:1px solid #efe3cf"><span style="font-size:12.5px;font-weight:500;color:#0F766E">{{ h.reco }}</span><span style="font:400 10px 'Spline Sans Mono',monospace;color:#1E7A4F">✓ {{ h.checked }}</span></div>
+</div>
+</a>
+</sc-for>
+</div>
+<sc-if value="{{ noFeaturedHosp }}" hint-placeholder-val="{{ false }}"><div style="background:#FBF4E8;border-radius:20px;padding:20px;font-size:14.5px">No verified {{ hospOwnLower }} hospitals serving {{ locality }} yet. <button onClick="{{ resetHospOwn }}" style="background:none;border:0;color:#0F766E;font-size:14.5px;cursor:pointer;padding:0">Show all</button></div></sc-if>
+<span style="font-weight:300;font-size:12px;line-height:1.55;color:#6e5a4b">Featured hospitals are chosen editorially for coverage and access, not ranked by quality. At most one sponsored hospital appears, always labelled. <a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#facilities">All hospitals &amp; care centres →</a></span>
+</section>
+
+<section style="background:#FBF4E8;margin-top:24px">
+<div style="max-width:1240px;margin:0 auto;padding:56px 24px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:6px"><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">{{ t.events }}</h2><span style="font-weight:300;font-size:14.5px;color:#6e5a4b">Verified events are checked with the organiser. Others are clearly marked until reviewed.</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><a href="Health%20Gurgaon%20Local%20and%20Events.dc.html#calendar" style="border:1.5px solid #2B1D14;color:#2B1D14;border-radius:999px;padding:9px 16px;font-size:14px;font-weight:500">Full calendar</a><a href="Health%20Gurgaon%20Local%20and%20Events.dc.html#submit" style="background:#2B1D14;color:#FBF4E8;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:500">+ Submit an event</a></div>
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ evTabs }}" as="e" hint-placeholder-count="5"><button onClick="{{ e.onClick }}" style="{{ e.style }}">{{ e.label }}</button></sc-for></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,520px),1fr));gap:12px">
+<sc-for list="{{ events }}" as="e" hint-placeholder-count="4">
+<a href="Health%20Gurgaon%20Local%20and%20Events.dc.html#event" style="background:#fff;border-radius:20px;padding:16px;display:flex;gap:16px;align-items:center;color:#2B1D14" style-hover="box-shadow:0 0 0 2px #0F766E">
+<div style="width:68px;flex:none;border-radius:14px;background:#2B1D14;color:#FBF4E8;display:flex;flex-direction:column;align-items:center;padding:10px 0"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#F0B43C">{{ e.dow }}</span><span style="font-weight:700;font-size:26px;line-height:1.1">{{ e.day }}</span><span style="font:400 11px 'Spline Sans Mono',monospace">{{ e.mon }}</span></div>
+<div style="display:flex;flex-direction:column;gap:5px;min-width:0;flex:1">
+<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><span style="{{ e.statusStyle }}">{{ e.status }}</span><span style="font-size:11.5px;font-weight:500;color:#6e5a4b">{{ e.type }}</span></div>
+<span style="font-weight:600;font-size:16.5px;letter-spacing:-.015em;line-height:1.3">{{ e.title }}</span>
+<span style="font-weight:300;font-size:13px;color:#5a473a">{{ e.meta }}</span>
+</div>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:56px 24px 24px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:6px"><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">{{ t.localities }}</h2><span style="font-weight:300;font-size:14.5px;color:#6e5a4b">What's verified, open late and coming up in each part of the city.</span></div><a href="Health%20Gurgaon%20Local%20and%20Events.dc.html#locality" style="font-weight:500;font-size:14.5px">All localities →</a></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px">
+<sc-for list="{{ localities }}" as="l" hint-placeholder-count="6">
+<a href="Health%20Gurgaon%20Local%20and%20Events.dc.html#locality" style="border-radius:20px;overflow:hidden;border:1px solid #efe3cf;color:#2B1D14;display:flex;flex-direction:column" style-hover="border-color:#2B1D14">
+<div style="height:92px;background:repeating-linear-gradient(135deg,#efe3cf 0 10px,#f6ecdc 10px 20px);display:flex;align-items:flex-end;padding:8px"><span style="font:400 10px 'Spline Sans Mono',monospace;color:#6e5a4b;background:#FBF4E8;padding:2px 6px;border-radius:4px">PHOTO · {{ l.photo }}</span></div>
+<div style="padding:14px;display:flex;flex-direction:column;gap:4px"><span style="font-weight:600;font-size:15.5px;letter-spacing:-.01em">{{ l.name }}</span><span style="font-weight:300;font-size:12.5px;color:#6e5a4b;line-height:1.4">{{ l.desc }}</span></div>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:40px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:24px">
+<div style="background:#fff;border:1px solid #efe3cf;border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><h2 style="margin:0;font-weight:700;font-size:24px;letter-spacing:-.03em">{{ t.ask }}</h2><a href="Health%20Gurgaon%20Community.dc.html#ask" style="background:#0F766E;color:#fff;border-radius:999px;padding:9px 16px;font-size:13.5px;font-weight:500">Ask a question</a></div>
+<sc-for list="{{ questions }}" as="q" hint-placeholder-count="3">
+<a href="Health%20Gurgaon%20Community.dc.html#thread" style="display:flex;flex-direction:column;gap:6px;padding:14px 0;border-top:1px solid #efe3cf;color:#2B1D14">
+<span style="font-weight:500;font-size:15.5px;line-height:1.4">{{ q.title }}</span>
+<div style="display:flex;gap:10px;flex-wrap:wrap;font-size:12.5px;font-weight:300;color:#6e5a4b"><span>{{ q.loc }}</span><span>· {{ q.replies }}</span><span style="{{ q.tagStyle }}">{{ q.tag }}</span></div>
+</a>
+</sc-for>
+<span style="font-weight:300;font-size:12.5px;color:#6e5a4b;line-height:1.5;border-top:1px solid #efe3cf;padding-top:12px">Neighbours share experiences, not medical advice. For anything urgent, call 112 or see a doctor. <a href="Health%20Gurgaon%20Community.dc.html#forum">Community guidelines</a></span>
+</div>
+<div style="background:#2B1D14;color:#FBF4E8;border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><h2 style="margin:0;font-weight:700;font-size:24px;letter-spacing:-.03em">The Gurgaon Health Report</h2><a href="Health%20Gurgaon%20Content%20and%20Trust.dc.html#news" style="color:#F0B43C;font-size:13.5px;font-weight:500">All updates →</a></div>
+<sc-for list="{{ news }}" as="n" hint-placeholder-count="3">
+<a href="Health%20Gurgaon%20Content%20and%20Trust.dc.html#news" style="display:flex;flex-direction:column;gap:6px;padding:14px 0;border-top:1px solid #4a3a2e;color:#FBF4E8">
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#F0B43C;letter-spacing:.06em">{{ n.cat }}</span><span style="font:400 10.5px 'Spline Sans Mono',monospace;color:#c9b8a4">{{ n.date }}</span></div>
+<span style="font-weight:500;font-size:16px;line-height:1.4">{{ n.title }}</span>
+<span style="font-weight:300;font-size:12.5px;color:#c9b8a4">{{ n.source }}</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:24px 24px 56px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">{{ t.guides }}</h2><a href="Health%20Gurgaon%20Content%20and%20Trust.dc.html#guide" style="font-weight:500;font-size:14.5px">Guide library →</a></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
+<sc-for list="{{ guides }}" as="g" hint-placeholder-count="3">
+<a href="Health%20Gurgaon%20Content%20and%20Trust.dc.html#guide" style="background:#FBF4E8;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px;color:#2B1D14;min-height:190px" style-hover="background:#f4e8d4">
+<span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#0F766E;letter-spacing:.06em">{{ g.tag }}</span>
+<span style="font-weight:600;font-size:19px;letter-spacing:-.02em;line-height:1.3;text-wrap:pretty">{{ g.title }}</span>
+<span style="font-weight:300;font-size:12.5px;color:#6e5a4b;margin-top:auto">{{ g.meta }}</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="background:#0F766E;color:#fff">
+<div style="max-width:1240px;margin:0 auto;padding:60px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:center">
+<div style="display:flex;flex-direction:column;gap:18px">
+<span style="align-self:flex-start;background:#FBF4E8;color:#2B1D14;border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:600">Healthy Neighbourhoods</span>
+<h2 style="margin:0;font-weight:700;font-size:38px;line-height:1.08;letter-spacing:-.04em;text-wrap:pretty">Run a health camp in your society? Let the neighbourhood know.</h2>
+<p style="margin:0;font-weight:300;font-size:16.5px;line-height:1.6;color:#d8efea;max-width:540px">RWAs, resident groups and NGOs can list verified camps, blood drives and workshops, find volunteers and share what they've done. Free to join. We don't promise sponsors or free services; we help the right people hear about your work.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><a href="Health%20Gurgaon%20Community.dc.html#rwa" style="background:#FBF4E8;color:#2B1D14;border-radius:999px;padding:12px 20px;font-size:15px;font-weight:600">Register your society</a><a href="Health%20Gurgaon%20Community.dc.html#society" style="border:1.5px solid #FBF4E8;color:#fff;border-radius:999px;padding:11px 20px;font-size:15px;font-weight:500">See how it works</a></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+<sc-for list="{{ rwaSteps }}" as="s" hint-placeholder-count="3">
+<div style="background:#0B5E57;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px"><span style="width:34px;height:34px;border-radius:50%;background:#F0B43C;color:#2B1D14;display:flex;align-items:center;justify-content:center;font-weight:700">{{ s.n }}</span><span style="font-weight:600;font-size:16px">{{ s.title }}</span><span style="font-weight:300;font-size:13px;line-height:1.5;color:#d8efea">{{ s.desc }}</span></div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section id="involved" style="max-width:1240px;margin:0 auto;padding:56px 24px;display:flex;flex-direction:column;gap:22px">
+<h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">{{ t.involved }}</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px">
+<sc-for list="{{ involve }}" as="v" hint-placeholder-count="3">
+<a href="{{ v.href }}" style="border:1.5px solid #efe3cf;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px;color:#2B1D14" style-hover="border-color:#2B1D14">
+<span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#9A5418;letter-spacing:.06em">{{ v.who }}</span>
+<span style="font-weight:600;font-size:19px;letter-spacing:-.02em">{{ v.title }}</span>
+<span style="font-weight:300;font-size:13.5px;line-height:1.55;color:#5a473a">{{ v.desc }}</span>
+<span style="font-weight:500;font-size:14px;color:#0F766E;margin-top:auto">{{ v.cta }} →</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto 56px;padding:0 24px">
+<div style="background:#FBF4E8;border-radius:28px;padding:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px;align-items:center">
+<div style="display:flex;flex-direction:column;gap:8px"><h2 style="margin:0;font-weight:700;font-size:26px;letter-spacing:-.03em">The weekly Gurgaon Health Report, on WhatsApp</h2><span style="font-weight:300;font-size:14.5px;line-height:1.55;color:#5a473a">One message a week: verified camps, new services and public health notices. No ads, no forwards. Leave anytime by replying STOP.</span></div>
+<sc-if value="{{ subscribed }}" hint-placeholder-val="{{ false }}"><div style="background:#fff;border-radius:18px;padding:18px 20px;display:flex;gap:12px;align-items:center"><span style="width:32px;height:32px;border-radius:50%;background:#1E7A4F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none">✓</span><span style="font-size:14.5px">You'll get a confirmation message on WhatsApp. Reply YES to start.</span></div></sc-if>
+<sc-if value="{{ notSubscribed }}" hint-placeholder-val="{{ true }}">
+<form onSubmit="{{ onSubscribe }}" style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;background:#fff;border:1.5px solid #2B1D14;border-radius:999px;overflow:hidden"><span style="padding:13px 0 13px 18px;font-size:15px;color:#6e5a4b">+91</span><input value="{{ phone }}" onChange="{{ onPhone }}" inputmode="numeric" placeholder="WhatsApp number" aria-label="WhatsApp number" style="flex:1;border:0;outline:0;padding:13px 12px;font-size:15px;min-width:0;background:transparent"><button type="submit" style="background:#2B1D14;color:#FBF4E8;border:0;padding:0 20px;font-size:14.5px;font-weight:500;cursor:pointer">Subscribe</button></div>
+<label style="display:flex;gap:10px;align-items:flex-start;font-size:12.5px;font-weight:300;color:#5a473a;line-height:1.5;cursor:pointer"><input type="checkbox" checked="{{ consent }}" onChange="{{ onConsent }}" style="margin-top:3px;width:16px;height:16px;accent-color:#0F766E">I agree to receive one weekly message from HealthGurgaon. My number won't be shared or added to groups.</label>
+<sc-if value="{{ subError }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#B42318;font-weight:500">{{ subError }}</span></sc-if>
+</form>
+</sc-if>
+</div>
+</section>
+
+<footer style="background:#2B1D14;color:#e8dccb">
+<div style="max-width:1240px;margin:0 auto;padding:48px 24px 28px;display:flex;flex-direction:column;gap:32px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px;grid-column:span 2;min-width:0">
+<span style="font-weight:700;font-size:22px;letter-spacing:-.045em;color:#FBF4E8">Health<span style="color:#F0B43C">Gurgaon</span></span>
+<span style="font-weight:300;font-size:13.5px;line-height:1.6;max-width:360px">Your neighbourhood's health network. Independent, verified local healthcare information for Gurugram. Basic listings are free for every provider; paid placements are always labelled.</span>
+</div>
+<sc-for list="{{ footer }}" as="f" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:9px"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#F0B43C;letter-spacing:.06em">{{ f.title }}</span><sc-for list="{{ f.links }}" as="l" hint-placeholder-count="4"><a href="{{ f.href }}" style="color:#e8dccb;font-size:13.5px;font-weight:300">{{ l }}</a></sc-for></div>
+</sc-for>
+</div>
+<div style="border-top:1px solid #4a3a2e;padding-top:18px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;font-weight:300;color:#c9b8a4">
+<span>Information on this site is not medical advice. In an emergency call 112 (ambulance 108).</span>
+<span><a href="Health%20Gurgaon%20Website%20Plan.dc.html" style="color:#e8dccb">Site plan</a> · <a href="Health%20Gurgaon%20Admin%20and%20Mobile.dc.html#admin" style="color:#e8dccb">Admin</a> · Delhi, Noida coming soon</span>
+</div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { hospOwn: 'All', lang: 'en', large: false, locality: 'Sector 56', query: '', toast: '', evType: 'All', phone: '', consent: false, subscribed: false, subError: '' };
+  componentWillUnmount() { clearTimeout(this._t); }
+  renderVals() {
+    const s = this.state;
+    const T = {
+      en: { emergency: 'Emergency? Call 112', emergencyNote: 'Ambulance 108 · This site is not for emergencies', larger: 'Larger text', contribute: 'Contribute', signin: 'Sign in',
+        kicker: 'GURUGRAM · VERIFIED LOCAL HEALTHCARE', h1: 'Find healthcare around your neighbourhood.', sub: 'Doctors, clinics, labs and chemists near you, each checked and dated. Plus health camps, local updates and neighbours who can help.',
+        searchPh: 'Doctor, clinic, lab, chemist…', search: 'Search', trust: 'Every listing shows when we last checked it.', howVerify: 'How verification works',
+        browse: 'Browse healthcare in Gurgaon', events: 'Health camps & events', localities: 'Healthcare by locality', ask: 'Ask your neighbourhood', guides: 'Local health guides', involved: 'Help keep Gurgaon’s health information right' },
+      hi: { emergency: 'आपातकाल? 112 पर कॉल करें', emergencyNote: 'एम्बुलेंस 108 · यह साइट आपातकाल के लिए नहीं है', larger: 'बड़े अक्षर', contribute: 'योगदान दें', signin: 'साइन इन',
+        kicker: 'गुरुग्राम · सत्यापित स्थानीय स्वास्थ्य सेवाएं', h1: 'अपने इलाके में स्वास्थ्य सेवाएं खोजें।', sub: 'आपके पास के डॉक्टर, क्लिनिक, लैब और केमिस्ट — हर एक जांचा हुआ और तारीख के साथ। साथ ही हेल्थ कैंप, स्थानीय खबरें और मदद करने वाले पड़ोसी।',
+        searchPh: 'डॉक्टर, क्लिनिक, लैब, केमिस्ट…', search: 'खोजें', trust: 'हर लिस्टिंग पर लिखा है कि हमने उसे आखिरी बार कब जांचा।', howVerify: 'सत्यापन कैसे होता है',
+        browse: 'गुड़गांव में स्वास्थ्य सेवाएं देखें', events: 'हेल्थ कैंप और कार्यक्रम', localities: 'इलाके के अनुसार', ask: 'अपने पड़ोस से पूछें', guides: 'स्थानीय स्वास्थ्य गाइड', involved: 'गुड़गांव की स्वास्थ्य जानकारी सही रखने में मदद करें' }
+    };
+    const t = T[s.lang];
+    const hi = s.lang === 'hi';
+    const localityOptions = ['Sector 56', 'Golf Course Road', 'Golf Course Ext. Road', 'Sohna Road', 'DLF Phases 1–5', 'New Gurgaon'];
+    const allProviders = [
+      { name: 'Dr. Ananya Rao', initials: 'AR', type: 'Paediatrician · MBBS, MD', loc: 'Sector 56', where: 'Sushant Lok 1 clinic · 0.8 km', langs: 'Hindi, English, Telugu', extra: 'Consultation ₹800 (verified)', badge: 'Registration checked', checked: '12 OCT 2026' },
+      { name: 'Prakash Path Labs', initials: 'PL', type: 'Diagnostic laboratory', loc: 'Sector 56', where: 'Sector 56 market · 0.4 km', langs: 'Home sample collection', extra: 'Open 7 am – 8 pm (hours checked)', badge: 'Facility checked', checked: '9 OCT 2026' },
+      { name: 'Sai Medicos', initials: 'SM', type: '24-hour chemist', loc: 'Sector 56', where: 'Near Sector 56 metro · 1.1 km', langs: 'Delivery available', extra: 'Open 24 hours (confirmed by call)', badge: 'Hours checked', checked: '14 OCT 2026' },
+      { name: 'Dr. Vikram Sethi', initials: 'VS', type: 'Physiotherapist · BPT, MPT', loc: 'Sector 56', where: 'Home visits + clinic · 1.6 km', langs: 'Hindi, English, Punjabi', extra: 'Wheelchair accessible (verified)', badge: 'Credentials checked', checked: '3 OCT 2026' },
+      { name: 'Dr. Meera Iyer', initials: 'MI', type: 'Gynaecologist · MBBS, MS', loc: 'Golf Course Road', where: 'DLF Phase 5 · 0.9 km', langs: 'English, Hindi, Tamil', extra: 'Consultation ₹1,200 (verified)', badge: 'Registration checked', checked: '11 OCT 2026' },
+      { name: 'Clarity Imaging', initials: 'CI', type: 'MRI, CT, ultrasound', loc: 'Golf Course Road', where: 'Sector 54 · 1.4 km', langs: 'Lift + ramp access', extra: 'Open till 10 pm (hours checked)', badge: 'Facility checked', checked: '8 OCT 2026' },
+      { name: 'Smile Square Dental', initials: 'SS', type: 'Dental clinic', loc: 'Sohna Road', where: 'Sector 49 · 0.7 km', langs: 'Hindi, English', extra: 'Sunday appointments', badge: 'Credentials checked', checked: '10 OCT 2026' },
+      { name: 'CareAtHome Nursing', initials: 'CH', type: 'Home healthcare', loc: 'Sohna Road', where: 'Serves Sohna Rd & Sector 47–50', langs: 'Elderly & post-surgery care', extra: 'Registered agency (verified)', badge: 'Facility checked', checked: '6 OCT 2026' },
+      { name: 'Dr. Arjun Khanna', initials: 'AK', type: 'Cardiologist · MD, DM', loc: 'DLF Phases 1–5', where: 'DLF Phase 3 · 1.2 km', langs: 'English, Hindi', extra: 'Consultation ₹1,500 (verified)', badge: 'Registration checked', checked: '13 OCT 2026' }
+    ];
+    const providers = allProviders.filter(p => p.loc === s.locality);
+    const pill = on => ({ border: on ? '1.5px solid #2B1D14' : '1.5px solid #e8dcc8', background: on ? '#2B1D14' : '#fff', color: on ? '#FBF4E8' : '#2B1D14', borderRadius: 999, padding: '8px 14px', fontSize: 13.5, cursor: 'pointer', minHeight: 38, fontFamily: 'inherit' });
+    const locTabs = ['Sector 56', 'Golf Course Road', 'Sohna Road', 'DLF Phases 1–5', 'New Gurgaon'].map(l => ({ label: l, onClick: () => this.setState({ locality: l }), style: pill(s.locality === l) }));
+    const allEvents = [
+      { dow: 'SUN', day: '26', mon: 'OCT', type: 'Health camp', cat: 'Camps', title: 'Free eye check-up for senior citizens', meta: 'Sector 57 Community Centre · 9 am–1 pm · Free · Organised by Sector 57 RWA', ok: true, where: 'Sector 57', cost: 'Free' },
+      { dow: 'SAT', day: '01', mon: 'NOV', type: 'Blood donation', cat: 'Blood drives', title: 'Blood donation drive with a licensed blood bank', meta: 'Clubhouse, Nirvana Country · 10 am–3 pm · Donors 18–65', ok: true },
+      { dow: 'SAT', day: '08', mon: 'NOV', type: 'Workshop', cat: 'Workshops', title: 'CPR & first-aid for residents and guards', meta: 'DLF Phase 4 club · 11 am · ₹200, register in advance', ok: true },
+      { dow: 'SUN', day: '09', mon: 'NOV', type: 'Screening', cat: 'Camps', title: 'Diabetes and BP screening', meta: 'Sohna Road, Sector 49 · 8 am–12 pm · Free · Submitted by resident', ok: false },
+      { dow: 'WED', day: '12', mon: 'NOV', type: 'Awareness', cat: 'Workshops', title: 'Talk: caring for a parent with dementia', meta: 'Online + Sector 56 library · 6 pm · Free', ok: true }
+    ];
+    const events = allEvents.filter(e => s.evType === 'All' || (s.evType === 'Free' ? /Free/.test(e.meta) : e.cat === s.evType)).map(e => ({ ...e,
+      status: e.ok ? '✓ Verified' : 'Awaiting review',
+      statusStyle: e.ok ? { background: '#E6F1EC', color: '#1E7A4F', borderRadius: 999, padding: '3px 9px', fontSize: 11.5, fontWeight: 600 } : { background: '#FFF4D6', color: '#7A5200', borderRadius: 999, padding: '3px 9px', fontSize: 11.5, fontWeight: 600, border: '1px dashed #C99A2E' } }));
+    const evTabs = ['All', 'Camps', 'Blood drives', 'Workshops', 'Free'].map(l => ({ label: l, onClick: () => this.setState({ evType: l }), style: pill(s.evType === l) }));
+    const qTag = c => c === 'Resolved' ? { color: '#1E7A4F', fontWeight: 600 } : c === 'Pharmacist answered' ? { color: '#0F766E', fontWeight: 600 } : { color: '#9A5418', fontWeight: 600 };
+    const questions = [
+      { title: 'Any 24-hour chemist near Golf Course Ext. Road that delivers at night?', loc: 'Sector 65', replies: '6 replies', tag: 'Resolved' },
+      { title: 'Which labs do home sample collection on Sohna Road on Sundays?', loc: 'Sector 49', replies: '4 replies', tag: 'Pharmacist answered' },
+      { title: 'Looking for a physiotherapist who does home visits for knee rehab', loc: 'DLF Phase 2', replies: '9 replies', tag: 'Open' }
+    ].map(q => ({ ...q, tagStyle: qTag(q.tag) }));
+    const news = [
+      { cat: 'PUBLIC HEALTH', date: '15 OCT 2026', title: 'Dengue season: what the district health department is advising this month', source: 'Source: District health advisory · Reporting' },
+      { cat: 'NEW SERVICE', date: '13 OCT 2026', title: 'A new 24-hour diagnostic centre opens in New Gurgaon: what it offers', source: 'Verified with the facility · Reporting' },
+      { cat: 'THIS WEEK', date: '16 OCT 2026', title: 'Five health camps across the city this week, and how to check one before you go', source: 'Weekly roundup' }
+    ];
+    const ev0 = allEvents[0];
+    return {
+      t, rootStyle: { zoom: s.large ? 1.15 : 1, fontFamily: hi ? "'Mukta','Lexend',sans-serif" : "'Lexend',sans-serif" },
+      h1Style: { margin: 0, fontWeight: 700, fontSize: hi ? 52 : 56, lineHeight: hi ? 1.2 : 1.02, letterSpacing: hi ? '0' : '-.045em', textWrap: 'balance', fontFamily: hi ? "'Mukta',sans-serif" : "'Lexend',sans-serif" },
+      langLabel: hi ? 'EN | हिं ✓' : 'EN ✓ | हिं',
+      toggleLang: () => this.setState({ lang: hi ? 'en' : 'hi' }),
+      toggleLarge: () => this.setState({ large: !s.large }),
+      largeBtnStyle: { background: s.large ? '#F0B43C' : 'transparent', border: '1px solid ' + (s.large ? '#F0B43C' : '#5a473a'), color: s.large ? '#2B1D14' : '#FBF4E8', borderRadius: 999, padding: '5px 12px', fontSize: 12.5, cursor: 'pointer', minHeight: 32 },
+      nav: (hi ? ['देखभाल खोजें', 'टॉप लिस्ट', 'इलाके', 'कार्यक्रम', 'पड़ोस से पूछें', 'स्वस्थ पड़ोस'] : ['Find care', 'Top lists', 'Localities', 'Events', 'Community', 'Healthy Neighbourhoods']).map((label, i) => ({ label, href: ['Health%20Gurgaon%20Find%20Care.dc.html#results', 'Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#lists', 'Health%20Gurgaon%20Local%20and%20Events.dc.html#locality', 'Health%20Gurgaon%20Local%20and%20Events.dc.html#calendar', 'Health%20Gurgaon%20Community.dc.html#forum', 'Health%20Gurgaon%20Community.dc.html#rwa'][i] })),
+      query: s.query, locality: s.locality, localityOptions,
+      onQuery: e => this.setState({ query: e.target.value }),
+      onLocality: e => this.setState({ locality: e.target.value }),
+      onSearch: e => { e.preventDefault(); const q = s.query.trim(); if (!q) return this.flash('Type what you need, for example “child doctor” or “MRI”.'); location.href = 'Health%20Gurgaon%20Find%20Care.dc.html#results'; },
+      quick: ['Paediatrician', 'Open-now chemist', 'Home sample collection', 'Physiotherapy at home', 'Dentist on Sunday'].map(l => ({ label: l, onClick: () => this.setState({ query: l }) })),
+      toast: s.toast,
+      nextLabel: 'NEXT CAMP NEAR ' + s.locality.toUpperCase(),
+      heroEvent: { title: ev0.title, when: 'Sun 26 Oct, 9 am', where: ev0.where, cost: ev0.cost },
+      categories: [
+        ['Doctors', 'By specialty and language'], ['Hospitals', 'Departments and emergency'], ['Clinics', 'Neighbourhood practices'], ['Diagnostics', 'Labs and home collection'],
+        ['Imaging', 'X-ray, MRI, CT, ultrasound'], ['Dental', 'Clinics and orthodontists'], ['Physiotherapy', 'Clinic and home visits'], ['Mental health', 'Counsellors and psychiatrists'],
+        ['Home healthcare', 'Nursing and elder care'], ['24-hour chemists', 'Open-late pharmacies'], ['Blood banks', 'Licensed banks and drives'], ['Vaccination', 'Children and adults'], ['Government hospitals', 'Free and low-cost care'], ['Nursing homes', 'Small in-patient facilities'], ['Transition care', 'Between hospital and home'], ['Hospice & palliative', 'Comfort care, home visits']
+      ].map(([name, desc]) => ({ name, desc, href: /Government|Nursing|Transition|Hospice/.test(name) ? 'Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#facilities' : 'Health%20Gurgaon%20Find%20Care.dc.html#results' })),
+      ...(() => {
+        const OC = { Private: ['#2B1D14', '#FBF4E8'], Government: ['#2C4F9E', '#fff'], Charitable: ['#9A5418', '#fff'] };
+        const H = {
+          'Sector 56': [['Aravali Multispeciality Hospital', 'Private', 'Large hospital', '4.0 km · Sector 51 · 200+ beds', ['Paediatrics', 'Cardiology', 'Ortho'], true, 'Recommended by 41 neighbours', 'Hospital entrance', true], ['District Civil Hospital (sample)', 'Government', 'Large hospital', '3.4 km · free / low-cost · 300+ beds', ['General medicine', 'Maternity', 'Eye'], true, 'Recommended by 28 neighbours', 'Civil hospital'], ['Sector 56 Care Hospital (sample)', 'Private', 'Small hospital', '0.9 km · 40 beds', ['General surgery', 'Medicine'], false, 'Recommended by 12 neighbours', 'Building front'], ['Urban Primary Health Centre (sample)', 'Government', 'Health centre', '2.9 km · free consultations', ['Vaccinations', 'Antenatal care'], false, 'Recommended by 9 neighbours', 'PHC entrance']],
+          'Golf Course Road': [['Gurgaon Super-speciality Institute (sample)', 'Private', 'Large hospital', '2.1 km · Sector 38 · 1,000+ beds', ['Cardiac', 'Oncology', 'Transplant'], true, 'Recommended by 63 neighbours', 'Hospital campus'], ['Shanti Nursing Home (sample)', 'Private', 'Nursing home', '2.6 km · DLF Phase 2 · 18 beds', ['Maternity', 'Gynaecology'], false, 'Recommended by 15 neighbours', 'Nursing home'], ['ESIC Hospital (sample)', 'Government', 'Large hospital', '6.8 km · Sector 9A', ['ESIC card holders', 'Ortho'], true, 'Recommended by 11 neighbours', 'ESIC hospital']],
+          'Sohna Road': [['Sohna Road Care Hospital (sample)', 'Private', 'Small hospital', '1.2 km · Sector 48 · 45 beds', ['Medicine', 'Paediatrics'], false, 'Recommended by 19 neighbours', 'Hospital front'], ['Aravali Multispeciality Hospital', 'Private', 'Large hospital', '6.5 km · Sector 51 · 200+ beds', ['Emergency', 'Cardiology'], true, 'Recommended by 41 neighbours', 'Hospital entrance', true], ['HomeBridge Recovery (sample)', 'Private', 'Transition care', '2.0 km · 24 beds · ICU step-down', ['Post-surgery', 'Stroke rehab'], false, 'Recommended by 8 neighbours', 'Recovery centre']],
+          'DLF Phases 1–5': [['Shanti Nursing Home (sample)', 'Private', 'Nursing home', '0.8 km · DLF Phase 2 · 18 beds', ['Maternity', 'Gynaecology'], false, 'Recommended by 15 neighbours', 'Nursing home'], ['Gurgaon Super-speciality Institute (sample)', 'Private', 'Large hospital', '4.5 km · Sector 38', ['Cardiac', 'Neuro'], true, 'Recommended by 63 neighbours', 'Hospital campus'], ['Sukoon Palliative Care (sample)', 'Charitable', 'Hospice / palliative', '3.1 km · Sector 39 · home visits', ['Palliative', 'Home care'], false, 'Recommended by 7 neighbours', 'Hospice']],
+          'New Gurgaon': [['Sewa Trust Hospital (sample)', 'Charitable', 'Small hospital', '1.5 km · subsidised rates', ['Dialysis', 'Medicine'], false, 'Recommended by 14 neighbours', 'Trust hospital'], ['New Gurgaon 24h Diagnostics & Hospital (sample)', 'Private', 'Small hospital', '2.2 km · Sector 82 · 30 beds', ['Emergency', 'Imaging'], true, 'Recommended by 6 neighbours', 'Building front'], ['Community Health Centre (sample)', 'Government', 'Health centre', '4.0 km · free / low-cost', ['Vaccinations', 'Maternity'], false, 'Recommended by 5 neighbours', 'CHC entrance']]
+        };
+        const list = (H[s.locality] || H['Sector 56']).filter(h => s.hospOwn === 'All' || h[1] === s.hospOwn);
+        return {
+          hospOwnTabs: ['All', 'Private', 'Government', 'Charitable'].map(o => ({ label: o, onClick: () => this.setState({ hospOwn: o }), style: pill(s.hospOwn === o) })),
+          featuredHosp: list.map(([name, own, type, meta, specs, emergency, reco, photo, sponsored]) => ({ name, own, type, meta, specs, emergency, reco, photo, sponsored: !!sponsored, checked: 'CHECKED OCT 2026',
+            ownStyle: { background: OC[own][0], color: OC[own][1], borderRadius: 999, padding: '3px 10px', fontSize: 11.5, fontWeight: 600 },
+            cardStyle: { border: sponsored ? '1.5px dashed #C99A2E' : '1px solid #efe3cf', background: sponsored ? '#FFFBF0' : '#fff', borderRadius: 22, overflow: 'hidden', display: 'flex', flexDirection: 'column', color: '#2B1D14' } })),
+          noFeaturedHosp: list.length === 0, hospOwnLower: s.hospOwn.toLowerCase(), resetHospOwn: () => this.setState({ hospOwn: 'All' })
+        };
+      })(),
+      locTabs, providers, hasProviders: providers.length > 0, noProviders: providers.length === 0,
+      resetLocality: () => this.setState({ locality: 'Sector 56' }),
+      evTabs, events,
+      localities: [
+        { name: 'Golf Course Road', desc: 'Large hospitals, specialists, imaging', photo: 'Golf Course Rd' },
+        { name: 'Golf Course Ext. Road', desc: 'New societies, clinics, chemists', photo: 'GCER societies' },
+        { name: 'Sohna Road', desc: 'Clinics, labs, home care', photo: 'Sohna Road' },
+        { name: 'DLF Phases 1–5', desc: 'Established clinics, senior care', photo: 'DLF Phase' },
+        { name: 'Sector 56', desc: 'Neighbourhood doctors, labs', photo: 'Sector 56 market' },
+        { name: 'New Gurgaon', desc: 'Growing coverage, new facilities', photo: 'New Gurgaon' }
+      ],
+      questions, news,
+      guides: [
+        { tag: 'GUIDE · NON-EMERGENCY CARE', title: 'How to find the right specialist in Gurgaon when you’re not sure who to see', meta: 'Reviewed by a general physician · Updated Oct 2026' },
+        { tag: 'GUIDE · DIAGNOSTICS', title: 'What to check before choosing a diagnostic centre', meta: 'Reviewed by a pathologist · Updated Sep 2026' },
+        { tag: 'GUIDE · FOR RWAs', title: 'How to organise a health camp in your housing society, step by step', meta: 'Written with Gurgaon RWAs · Updated Oct 2026' }
+      ],
+      rwaSteps: [
+        { n: '1', title: 'Register', desc: 'Society name, locality and one authorised contact. Informal resident groups welcome.' },
+        { n: '2', title: 'We verify', desc: 'A quick call or letterhead check. Usually within 3 working days.' },
+        { n: '3', title: 'Publish', desc: 'Use a template to list your camp. Share it straight to your society WhatsApp.' }
+      ],
+      involve: [
+        { who: 'RESIDENTS, STUDENTS, PROFESSIONALS', title: 'Become a Community Health Champion', desc: 'Help check listings, report events and support camps. Voluntary roles, with training and clear limits on what you can access.', cta: 'See roles', href: 'Health%20Gurgaon%20Community.dc.html#volunteer' },
+        { who: 'ANYONE', title: 'Suggest a correction', desc: 'Wrong timings, closed clinic, outdated fee? Tell us and we\'ll check it. You\'ll see the status of your report.', cta: 'Report incorrect info', href: 'Health%20Gurgaon%20Content%20and%20Trust.dc.html#report' },
+        { who: 'DOCTORS, CLINICS, LABS', title: 'Claim your profile', desc: 'Basic listings are free. Verify your identity to update timings, services and contact details.', cta: 'Claim a profile', href: 'Health%20Gurgaon%20Content%20and%20Trust.dc.html#claim' }
+      ],
+      phone: s.phone, consent: s.consent, subscribed: s.subscribed, notSubscribed: !s.subscribed, subError: s.subError,
+      onPhone: e => this.setState({ phone: e.target.value.replace(/\D/g, '').slice(0, 10), subError: '' }),
+      onConsent: e => this.setState({ consent: e.target.checked, subError: '' }),
+      onSubscribe: e => { e.preventDefault(); if (s.phone.length !== 10) return this.setState({ subError: 'Enter a 10-digit mobile number.' }); if (!s.consent) return this.setState({ subError: 'Please tick the consent box so we can message you.' }); this.setState({ subscribed: true }); },
+      footer: [
+        { title: 'FIND CARE', href: 'Health%20Gurgaon%20Find%20Care.dc.html#results', links: ['Doctors', 'Hospitals & clinics', 'Diagnostics', '24-hour chemists', 'Blood banks'] },
+        { title: 'COMMUNITY', href: 'Health%20Gurgaon%20Community.dc.html#forum', links: ['Events calendar', 'Ask your neighbourhood', 'Healthy Neighbourhoods', 'Volunteer'] },
+        { title: 'TRUST CENTRE', href: 'Health%20Gurgaon%20Content%20and%20Trust.dc.html#trust', links: ['How verification works', 'Editorial policy', 'Sponsorship policy', 'Review policy', 'Privacy'] }
+      ]
+    };
+  }
+  flash(msg) { clearTimeout(this._t); this.setState({ toast: msg }); this._t = setTimeout(() => this.setState({ toast: '' }), 4500); }
+}
+</script>
+</body>
+</html>

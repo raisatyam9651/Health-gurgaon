@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><style>body{margin:0;background:#fff;font-family:'Lexend',sans-serif;color:#2B1D14}a{color:#0F766E;text-decoration:none}a:hover{color:#2B1D14}button{font-family:inherit}*{box-sizing:border-box}</style></helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+
+<header style="background:#2B1D14;color:#FBF4E8"><div style="max-width:1180px;margin:0 auto;padding:44px 24px 40px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#F0B43C;letter-spacing:.06em">SYSTEM PLAN · HEALTHGURGAON</span><a href="Health%20Gurgaon%20Homepage.dc.html" style="color:#e8dccb;font-size:13px">← Back to site</a></div>
+<h1 style="margin:0;font-weight:700;font-size:48px;line-height:1.02;letter-spacing:-.045em;max-width:880px">Neighbour Recommendations: ranking doctors by what residents say</h1>
+<p style="margin:0;font-weight:300;font-size:17px;line-height:1.6;color:#e8dccb;max-width:780px">Doctors in each locality are ordered by how often <b style="font-weight:600;color:#FBF4E8">different residents</b> recommend them positively in forum discussions, weighted for trust and recency and balanced against negative experiences.</p>
+<div style="background:#3a2a1e;border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;max-width:880px"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#F0B43C">KEY DECISION</span><span style="font-weight:300;font-size:14.5px;line-height:1.6;color:#FBF4E8">Don't rank by raw mention count. It rewards whoever posts most, including staff, relatives and paid accounts. Count <b style="font-weight:600">unique, trusted residents</b> instead. The demo below shows the difference.</span></div>
+</div></header>
+
+<main style="flex:1;max-width:1180px;width:100%;margin:0 auto;padding:40px 24px 64px;display:flex;flex-direction:column;gap:56px">
+
+<section style="display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#0F766E">01 · HOW IT WORKS</span><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">From a forum post to a ranking</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+<sc-for list="{{ pipeline }}" as="p" hint-placeholder-count="5"><div style="background:#FBF4E8;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:8px"><span style="width:32px;height:32px;border-radius:50%;background:#2B1D14;color:#F0B43C;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px">{{ p.n }}</span><span style="font-weight:600;font-size:16px">{{ p.t }}</span><span style="font-weight:300;font-size:13px;line-height:1.55;color:#5a473a">{{ p.d }}</span><span style="font:400 10.5px 'Spline Sans Mono',monospace;color:#0F766E">{{ p.who }}</span></div></sc-for>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#0F766E">02 · WHAT COUNTS</span><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">How each mention is classified</h2><span style="font-weight:300;font-size:15px;color:#5a473a;max-width:760px">Only public forum replies and threads count. Private messages and reviews are kept separate (reviews feed the Top Lists).</span></div>
+<div style="border:1px solid #efe3cf;border-radius:22px;overflow:hidden">
+<sc-for list="{{ examples }}" as="e" hint-placeholder-count="6"><div style="display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr) 90px;gap:16px;padding:16px 18px;border-top:1px solid #efe3cf;align-items:center"><span style="font-weight:300;font-size:14.5px;line-height:1.55;font-style:italic">“{{ e.q }}”</span><span style="{{ e.style }}">{{ e.label }}</span><span style="font:600 14px 'Spline Sans Mono',monospace;text-align:right;color:#2B1D14">{{ e.w }}</span></div></sc-for>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#0F766E">03 · THE SCORE</span><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">Neighbour score, per doctor, per locality, per specialty</h2></div>
+<div style="background:#2B1D14;color:#FBF4E8;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:14px">
+<span style="font:500 15px/1.8 'Spline Sans Mono',monospace;color:#F0B43C">score = Σ<sub>unique residents</sub> ( sentiment × trust × recency ) × balance</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px"><sc-for list="{{ factors }}" as="f" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:4px"><span style="font-weight:600;font-size:15px">{{ f.k }}</span><span style="font-weight:300;font-size:13px;line-height:1.55;color:#e8dccb">{{ f.d }}</span></div></sc-for></div>
+<span style="font-weight:300;font-size:12.5px;color:#c9b8a4;border-top:1px solid #4a3a2e;padding-top:12px">A doctor needs at least 5 different residents recommending them in the last 12 months to be ranked. Below that, the profile shows “Not enough neighbour discussion yet”, never a low score.</span>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-end"><div style="display:flex;flex-direction:column;gap:6px;max-width:680px"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#0F766E">04 · LIVE DEMO</span><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">Paediatricians, Sohna Road: raw count vs safeguarded</h2><span style="font-weight:300;font-size:15px;color:#5a473a">Turn each safeguard on or off to see how the ranking changes. Sample data.</span></div><div style="display:flex;gap:6px"><button onClick="{{ allOff }}" style="{{ allOffStyle }}">Raw count</button><button onClick="{{ allOn }}" style="{{ allOnStyle }}">All safeguards</button></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+<div style="flex:1 1 260px;max-width:360px;display:flex;flex-direction:column;gap:8px;border:1px solid #efe3cf;border-radius:22px;padding:18px">
+<span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#6e5a4b;padding-bottom:4px">SAFEGUARDS</span>
+<sc-for list="{{ toggles }}" as="t" hint-placeholder-count="6"><label style="display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-top:1px solid #f3eadb;cursor:pointer"><input type="checkbox" checked="{{ t.on }}" onChange="{{ t.onChange }}" style="width:20px;height:20px;margin-top:1px;accent-color:#0F766E;flex:none"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:500;font-size:14.5px">{{ t.label }}</span><span style="font-weight:300;font-size:12.5px;line-height:1.45;color:#5a473a">{{ t.d }}</span></span></label></sc-for>
+</div>
+<div style="flex:2 1 400px;display:flex;flex-direction:column;gap:10px;min-width:0">
+<sc-for list="{{ ranking }}" as="r" hint-placeholder-count="6">
+<div style="{{ r.cardStyle }}">
+<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+<span style="{{ r.rankStyle }}">{{ r.rank }}</span>
+<div style="flex:1;min-width:180px;display:flex;flex-direction:column;gap:3px"><span style="font-weight:600;font-size:16.5px">{{ r.name }}</span><span style="font-weight:300;font-size:12.5px;color:#5a473a">{{ r.sub }}</span></div>
+<div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;min-width:110px"><span style="font-weight:700;font-size:24px;letter-spacing:-.03em;color:#0F766E">{{ r.scoreText }}</span><span style="font:400 10px 'Spline Sans Mono',monospace;color:#6e5a4b">{{ r.unit }}</span></div>
+<span style="{{ r.moveStyle }}">{{ r.move }}</span>
+</div>
+<div style="height:6px;border-radius:3px;background:#efe3cf;overflow:hidden"><div style="{{ r.bar }}"></div></div>
+<sc-if value="{{ r.hasNotes }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ r.notes }}" as="n" hint-placeholder-count="2"><span style="background:#FFF4D6;color:#7A5200;border-radius:999px;padding:3px 9px;font-size:11.5px;font-weight:500">{{ n }}</span></sc-for></div></sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#0F766E">05 · ON THE WEBSITE</span><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">How residents see it</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:20px;align-items:start">
+<div style="border:1px solid #efe3cf;border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:12px">
+<span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#6e5a4b">ON THE LOCALITY PAGE</span>
+<span style="font-weight:700;font-size:20px;letter-spacing:-.02em">Most recommended by neighbours: paediatricians on Sohna Road</span>
+<sc-for list="{{ widget }}" as="w" hint-placeholder-count="3"><div style="display:flex;gap:12px;align-items:center;border-top:1px solid #efe3cf;padding-top:12px"><span style="width:34px;height:34px;border-radius:10px;background:#F0B43C;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none">{{ w.rank }}</span><div style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-weight:600;font-size:15px">{{ w.name }}</span><span style="font-weight:300;font-size:12.5px;color:#5a473a">{{ w.line }}</span></div></div></sc-for>
+<span style="font-weight:300;font-size:12px;line-height:1.5;color:#6e5a4b">Based on public forum discussions in the last 12 months. Reflects residents' experiences, not clinical quality. <a href="Health%20Gurgaon%20Content%20and%20Trust.dc.html#trust">How this works</a></span>
+</div>
+<div style="border:1px solid #efe3cf;border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:12px">
+<span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#6e5a4b">ON THE DOCTOR PROFILE</span>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="background:#E6F1EC;color:#1E7A4F;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600">Recommended by 24 neighbours</span><span style="font:400 11px 'Spline Sans Mono',monospace;color:#6e5a4b">#1 ON SOHNA ROAD · PAEDIATRICS</span></div>
+<span style="font-weight:600;font-size:15px">What neighbours mention</span>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ themes }}" as="t" hint-placeholder-count="4"><span style="background:#FBF4E8;border-radius:999px;padding:6px 12px;font-size:13px">{{ t }}</span></sc-for></div>
+<sc-for list="{{ quotes }}" as="q" hint-placeholder-count="2"><a href="Health%20Gurgaon%20Community.dc.html#thread" style="background:#FBF4E8;border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;color:#2B1D14"><span style="font-weight:300;font-size:14px;line-height:1.55">“{{ q.t }}”</span><span style="font:400 10.5px 'Spline Sans Mono',monospace;color:#0F766E">{{ q.m }} → READ THREAD</span></a></sc-for>
+<span style="font-weight:300;font-size:12.5px;color:#5a473a">Also mentioned with concerns by 2 residents (waiting time). <a href="Health%20Gurgaon%20Community.dc.html#thread">See all mentions</a></span>
+</div>
+</div>
+</section>
+
+<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#0F766E">06 · ANTI-GAMING</span><h2 style="margin:0;font-weight:700;font-size:26px;letter-spacing:-.03em">Rules that keep it honest</h2>
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="7"><div style="display:flex;gap:12px;align-items:flex-start;border-top:1px solid #efe3cf;padding-top:10px"><span style="font:600 12px 'Spline Sans Mono',monospace;color:#B42318;padding-top:2px;flex:none">{{ r.n }}</span><div style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600;font-size:14.5px">{{ r.t }}</span><span style="font-weight:300;font-size:13px;line-height:1.5;color:#5a473a">{{ r.d }}</span></div></div></sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#0F766E">07 · FOR DOCTORS</span><h2 style="margin:0;font-weight:700;font-size:26px;letter-spacing:-.03em">Fairness for providers</h2>
+<sc-for list="{{ fairness }}" as="r" hint-placeholder-count="5"><div style="display:flex;gap:12px;align-items:flex-start;border-top:1px solid #efe3cf;padding-top:10px"><span style="color:#1E7A4F;font-weight:700;padding-top:1px;flex:none">✓</span><div style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600;font-size:14.5px">{{ r.t }}</span><span style="font-weight:300;font-size:13px;line-height:1.5;color:#5a473a">{{ r.d }}</span></div></div></sc-for>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 11px 'Spline Sans Mono',monospace;color:#0F766E">08 · ROLLOUT</span><h2 style="margin:0;font-weight:700;font-size:30px;letter-spacing:-.035em">Start manual, automate once it's accurate</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px"><sc-for list="{{ phases }}" as="p" hint-placeholder-count="3"><div style="{{ p.style }}"><span style="font:500 10.5px 'Spline Sans Mono',monospace;color:#9A5418">{{ p.when }}</span><span style="font-weight:700;font-size:19px;letter-spacing:-.02em">{{ p.t }}</span><span style="font-weight:300;font-size:13.5px;line-height:1.6;color:#5a473a">{{ p.d }}</span><span style="font-weight:500;font-size:12.5px;color:#0F766E;border-top:1px solid #e8dcc8;padding-top:8px">Go-ahead when: {{ p.gate }}</span></div></sc-for></div>
+</section>
+
+<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px">
+<div style="background:#FBF4E8;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px"><span style="font-weight:700;font-size:20px">How we'll know it works</span><sc-for list="{{ metrics }}" as="m" hint-placeholder-count="5"><span style="font-weight:300;font-size:13.5px;line-height:1.55;border-top:1px solid #efe3cf;padding-top:8px">{{ m }}</span></sc-for></div>
+<div style="background:#FBEDEB;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px"><span style="font-weight:700;font-size:20px;color:#B42318">Risks to manage</span><sc-for list="{{ risks }}" as="m" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;gap:2px;border-top:1px solid #f1d2cd;padding-top:8px"><span style="font-weight:600;font-size:14px">{{ m.t }}</span><span style="font-weight:300;font-size:13px;line-height:1.5">{{ m.d }}</span></div></sc-for></div>
+</section>
+
+</main>
+<footer style="background:#2B1D14;color:#c9b8a4;font-size:12.5px;font-weight:300"><div style="max-width:1180px;margin:0 auto;padding:22px 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span><b style="color:#FBF4E8;font-weight:700">Health<span style="color:#F0B43C">Gurgaon</span></b> · System plan. All names and numbers are samples.</span><span><a href="Health%20Gurgaon%20Top%20Lists%20and%20Stories.dc.html#lists" style="color:#e8dccb">Top lists</a> · <a href="Health%20Gurgaon%20Website%20Plan.dc.html" style="color:#e8dccb">Site plan</a></span></div></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DOCS = [
+  { name: 'Dr. Kavya Menon', raw: 34, unique: 26, newAcct: 2, verified: 9, old: 4, neg: 2, conflict: 0 },
+  { name: 'Dr. Sunil Arora', raw: 58, unique: 21, newAcct: 15, verified: 1, old: 2, neg: 1, conflict: 5 },
+  { name: 'Dr. Ritu Saxena', raw: 40, unique: 30, newAcct: 1, verified: 5, old: 22, neg: 6, conflict: 0 },
+  { name: 'Dr. Imran Qureshi', raw: 22, unique: 18, newAcct: 1, verified: 8, old: 1, neg: 1, conflict: 0 },
+  { name: 'Dr. Vivek Jain', raw: 30, unique: 24, newAcct: 2, verified: 4, old: 3, neg: 16, conflict: 0 },
+  { name: 'Dr. Pooja Nair', raw: 5, unique: 4, newAcct: 0, verified: 3, old: 0, neg: 0, conflict: 0 }
+];
+const TOG = [
+  ['unique', 'Count people, not posts', 'One resident = one vote per doctor, however many times they post.'],
+  ['conflict', 'Remove conflicts of interest', 'Staff, relatives and self-promotion (declared or detected) are excluded.'],
+  ['trust', 'Weight by trust', 'Accounts under 30 days count 0.3×; verified-visit residents count 1.5×.'],
+  ['recency', 'Fade old mentions', 'Mentions older than 12 months count 0.4×.'],
+  ['balance', 'Balance negative experiences', 'Score scales by share of positive vs negative residents.'],
+  ['threshold', 'Minimum 5 residents', 'Below that: “not enough discussion yet”, never ranked.']
+];
+class Component extends DCLogic {
+  state = { on: { unique: true, conflict: true, trust: true, recency: true, balance: true, threshold: true } };
+  renderVals() {
+    const on = this.state.on;
+    const anyOn = Object.values(on).some(Boolean), allOnV = Object.values(on).every(Boolean);
+    const set = v => this.setState({ on: Object.fromEntries(TOG.map(t => [t[0], v])) });
+    const score = d => {
+      let x = on.unique ? d.unique : d.raw; const notes = [];
+      if (on.conflict && d.conflict) { x -= d.conflict; notes.push(`${d.conflict} staff/relative mentions removed`); }
+      if (on.trust) { x += -d.newAcct * 0.7 + d.verified * 0.5; if (d.newAcct > 5) notes.push(`${d.newAcct} new-account mentions discounted`); }
+      if (on.recency && d.old) { x -= d.old * 0.6; if (d.old > 5) notes.push(`${d.old} mentions over a year old faded`); }
+      if (on.balance && d.neg) { x = x * x / (x + d.neg); if (d.neg > 4) notes.push(`${d.neg} residents shared negative experiences`); }
+      const below = on.threshold && (d.unique - (on.conflict ? d.conflict : 0)) < 5;
+      return { x: Math.max(0, x), notes, below };
+    };
+    const rawOrder = [...DOCS].sort((a, b) => b.raw - a.raw).map(d => d.name);
+    const scored = DOCS.map(d => ({ d, ...score(d) }));
+    const ranked = scored.filter(s => !s.below).sort((a, b) => b.x - a.x);
+    const unranked = scored.filter(s => s.below);
+    const max = Math.max(...ranked.map(r => r.x), 1);
+    const pill = a => ({ border: a ? '1.5px solid #2B1D14' : '1.5px solid #e8dcc8', background: a ? '#2B1D14' : '#fff', color: a ? '#FBF4E8' : '#2B1D14', borderRadius: 999, padding: '9px 15px', fontSize: 13.5, cursor: 'pointer' });
+    const ex = [
+      ['Dr. Menon on Sohna Road is brilliant with toddlers, highly recommend.', 'Strong positive', '+1.0', ['#E6F1EC', '#1E7A4F']],
+      ['We went to Dr. Qureshi, he was fine, clinic was clean.', 'Mild positive', '+0.5', ['#E6F1EC', '#1E7A4F']],
+      ['Dr. Jain kept us waiting 2 hours and barely explained anything.', 'Negative experience', '−1.0', ['#FBEDEB', '#B42318']],
+      ['Does anyone know if Dr. Saxena still practises in Sector 49?', 'Question only, not counted', '0', ['#FBF4E8', '#5a473a']],
+      ['As Dr. Arora’s clinic manager, I can say he’s the best in Gurgaon!', 'Conflict of interest, excluded', '0', ['#FFF4D6', '#7A5200']],
+      ['Dr. X is a fraud who ruined my son’s life.', 'Allegation, held for moderator', 'hold', ['#2B1D14', '#F0B43C']]
+    ];
+    return {
+      pipeline: [['1', 'Collect', 'Public forum threads and replies, with locality and topic tags.', 'AUTOMATIC'], ['2', 'Link to doctor', 'Match names to verified profiles (“Dr. Menon, Sohna Road” → profile ID). Ambiguous matches go to a moderator.', 'AI + MODERATOR'], ['3', 'Classify', 'Strong positive, mild positive, negative, question, conflict, allegation. Every negative and low-confidence call is checked by a human.', 'AI + MODERATOR'], ['4', 'Weight & de-duplicate', 'One vote per resident per doctor; trust, recency and conflict rules applied.', 'AUTOMATIC'], ['5', 'Rank', 'Recalculated weekly per locality × specialty. Published with the date and count.', 'AUTOMATIC, AUDITED']].map(([n, t, d, who]) => ({ n, t, d, who })),
+      examples: ex.map(([q, label, w, c]) => ({ q, label, w, style: { justifySelf: 'start', background: c[0], color: c[1], borderRadius: 999, padding: '4px 11px', fontSize: 12.5, fontWeight: 600 } })),
+      factors: [['Sentiment', '+1 strong recommendation, +0.5 mild, −1 negative experience.'], ['Trust', '1.5× verified visit · 1× established resident · 0.3× account under 30 days.'], ['Recency', 'Full weight for 12 months, then 0.4×. Old fame doesn’t last forever.'], ['Balance', 'Multiplied by share of positive residents, so polarising doctors don’t top lists.']].map(([k, d]) => ({ k, d })),
+      allOn: () => set(true), allOff: () => set(false), allOnStyle: pill(allOnV), allOffStyle: pill(!anyOn),
+      toggles: TOG.map(([k, label, d]) => ({ label, d, on: on[k], onChange: () => this.setState({ on: { ...on, [k]: !on[k] } }) })),
+      ranking: [...ranked.map((r, i) => { const delta = rawOrder.indexOf(r.d.name) - i;
+        return { rank: i + 1, name: r.d.name, sub: `${r.d.raw} positive mentions · ${r.d.unique} different residents · ${r.d.neg} negative`, scoreText: anyOn ? r.x.toFixed(1) : String(r.d.raw), unit: anyOn ? 'NEIGHBOUR SCORE' : 'RAW MENTIONS',
+          move: delta > 0 ? `▲ ${delta} vs raw` : delta < 0 ? `▼ ${-delta} vs raw` : '— same', moveStyle: { font: "500 11px 'Spline Sans Mono',monospace", color: delta > 0 ? '#1E7A4F' : delta < 0 ? '#B42318' : '#6e5a4b', minWidth: 80, textAlign: 'right' },
+          notes: r.notes, hasNotes: r.notes.length > 0, bar: { width: (anyOn ? r.x / max : r.d.raw / 58) * 100 + '%', height: '100%', background: i === 0 ? '#F0B43C' : '#0F766E', transition: 'width .4s' },
+          rankStyle: { width: 42, height: 42, borderRadius: 12, background: i < 3 ? '#F0B43C' : '#FBF4E8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 18, flex: 'none' },
+          cardStyle: { border: '1px solid #efe3cf', borderRadius: 18, padding: 14, display: 'flex', flexDirection: 'column', gap: 10, background: '#fff' } }; }),
+        ...unranked.map(r => ({ rank: '–', name: r.d.name, sub: `${r.d.unique} residents so far: not enough neighbour discussion yet`, scoreText: '—', unit: 'NOT RANKED', move: '', moveStyle: {}, notes: [], hasNotes: false, bar: { width: 0 },
+          rankStyle: { width: 42, height: 42, borderRadius: 12, background: '#f3eadb', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 18, flex: 'none', color: '#6e5a4b' },
+          cardStyle: { border: '1px dashed #e8dcc8', borderRadius: 18, padding: 14, display: 'flex', flexDirection: 'column', gap: 10, background: '#FDFAF4' } }))],
+      widget: [['1', 'Dr. Kavya Menon', 'Recommended by 24 neighbours · “great with toddlers”'], ['2', 'Dr. Imran Qureshi', 'Recommended by 17 neighbours · “explains clearly”'], ['3', 'Dr. Ritu Saxena', 'Recommended by 16 neighbours · “very experienced”']].map(([rank, name, line]) => ({ rank, name, line })),
+      themes: ['Great with toddlers (11)', 'Explains clearly (9)', 'Answers calls after hours (6)', 'Newborn care (5)'],
+      quotes: [{ t: 'Calm with our newborn and answered our call at 10 pm when we panicked.', m: 'SECTOR 49 · SEP 2026' }, { t: 'Took time to explain the vaccine schedule. Highly recommend.', m: 'NIRVANA COUNTRY · AUG 2026' }],
+      rules: [['01', 'One resident, one vote', 'Repeat posts by the same person never add up.'], ['02', 'Phone-verified accounts only', 'One account per number; new accounts carry low weight for 30 days.'], ['03', 'Burst detection', 'A sudden spike of praise from new or linked accounts freezes that doctor’s score pending review.'], ['04', 'Conflict declarations', 'Users must declare if they work for or are related to a provider; undeclared conflicts lead to removal.'], ['05', 'No solicitation', 'Doctors or clinics asking patients to post praise is a policy violation; the profile is flagged.'], ['06', 'Allegations aren’t sentiment', 'Claims of malpractice go to moderators, never into scores.'], ['07', 'Random audits', '5% of scored mentions re-checked by humans each week.']].map(([n, t, d]) => ({ n, t, d })),
+      fairness: [['No pay-to-rank', 'Sponsorship or claiming a profile has zero effect on the score.'], ['See every mention', 'Claimed profiles can view all mentions counted for or against them.'], ['Dispute a mention', 'Flag misattributed or fake mentions; reviewed within 5 working days, outcome logged.'], ['Right of reply', 'Respond publicly in the thread; replies don’t change the score.'], ['No negative leaderboards', 'We never publish “worst doctors”. Unranked simply means not enough discussion.']].map(([t, d]) => ({ t, d })),
+      phases: [['PHASE 2 · FORUM LAUNCH', 'Manual tagging', 'Moderators tag doctor mentions and sentiment by hand while volume is small. Shows “Recommended by N neighbours” on profiles only, with no rankings yet.', 'forum has 300+ doctor mentions across 3 localities', '#FBF4E8'], ['PHASE 2B · ~6 MONTHS', 'AI-assisted, human-confirmed', 'A language model suggests doctor links and sentiment; moderators confirm. Locality rankings go live for specialties with 5+ eligible doctors.', 'model agrees with moderators on 90%+ of positives', '#E6F1EC'], ['PHASE 3', 'Automated with audits', 'Positives auto-scored; negatives, allegations and low-confidence calls still reviewed. Weekly recalculation, public method page, dispute workflow.', 'dispute rate under 2% and audits stay above 95% accurate', '#FBF4E8']].map(([when, t, d, gate, bg]) => ({ when, t, d, gate, style: { background: bg, borderRadius: 20, padding: 20, display: 'flex', flexDirection: 'column', gap: 8 } })),
+      metrics: ['Classifier accuracy vs moderator decisions (precision on positives ≥ 90%)', 'Share of scores frozen by burst detection, and how many were genuinely gamed', 'Provider disputes per month and % upheld', 'Click-through from “Most recommended” to profiles, and contact actions taken', 'Resident survey: “Did the recommended doctor meet your expectations?”'],
+      risks: [['Medical-ethics rules', 'NMC rules restrict doctors soliciting praise or advertising. The platform must stay independent, and no doctor may encourage posts. Needs legal review.'], ['Defamation', 'Negative mentions and allegations need moderation, right of reply and takedown process under IT Rules.'], ['Popularity ≠ quality', 'Label as “recommended by neighbours”, never “best doctor”. Show the count and date.'], ['Cold start & bias', 'Newer doctors and quieter localities get fewer mentions; the threshold avoids unfair low scores, and verified visits get extra weight.'], ['Privacy', 'Quotes shown only from public posts, with health details stripped and authors anonymised to locality.']].map(([t, d]) => ({ t, d }))
+    };
+  }
+}
+</script>
+</body>
+</html>
